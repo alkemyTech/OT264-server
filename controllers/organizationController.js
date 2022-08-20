@@ -8,7 +8,6 @@ class OrganizationController {
       });
       res.status(200).json(organization);
     } catch (error) {
-      console.log(error);
       res.status(404).send('respond with a resource');
     }
   }
