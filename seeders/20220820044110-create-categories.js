@@ -3,12 +3,12 @@
 module.exports = {
   up: async (queryInterface, Sequelize) => {
     await queryInterface.bulkInsert(
-      'Activities',
+      'Categories',
       [
         {
-          name: 'Actividad 1',
-          content: 'Contenido actividad 1',
-          image: 'https://placeimg.com/640/480/arch',
+          name: 'Categoria 1',
+          description: ' Descripcion de categoria 1 ',
+          image: 'https://placeimg.com/640/480/tech?t=1660971019113',
           createdAt: new Date(),
           updatedAt: new Date(),
           deletedAt: null
@@ -19,6 +19,6 @@ module.exports = {
   },
 
   down: async (queryInterface, Sequelize) => {
-    await queryInterface.bulkDelete('Activities', null, {});
+    await queryInterface.bulkDelete('Categories', null, {});
   }
 };
