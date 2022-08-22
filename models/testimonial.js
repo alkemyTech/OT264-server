@@ -17,11 +17,11 @@ module.exports = (sequelize, DataTypes) => {
     name: DataTypes.STRING,
     image: DataTypes.STRING,
     content: DataTypes.STRING,
-    softDelets: DataTypes.BOOLEAN
+    deletedAt: DataTypes.DATE
   }, {
     sequelize,
     modelName: 'Testimonial',
-    timestamps: false
+    paranoid: true
   });
   return Testimonial;
 };

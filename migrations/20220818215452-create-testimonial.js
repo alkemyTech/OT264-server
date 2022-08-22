@@ -17,6 +17,9 @@ module.exports = {
       content: {
         type: Sequelize.STRING
       },
+      deletedAt: {
+        type: Sequelize.DATE
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE
