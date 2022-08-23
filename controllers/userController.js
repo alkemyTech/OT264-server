@@ -1,6 +1,20 @@
 const { User } = require('../models');
 const bcrypt = require('bcrypt');
+
 class UserController {
+  static async deleteUser(req, res) {
+    try {
+      const { id } = req.params;
+      const deleteUser = await User.destroy({ where: { id } });
+      if (deleteUser) {
+        return res.status(200).send({ msg: `El usuario fue eliminado` });
+      }
+      return res.status(400).json({ msg: 'Ese usuario no existe' });
+    } catch (error) {
+      res.status(404).json({ msg: 'Ah ocurrido un error' });
+    }
+  }
+
   async create(data) {
     data.password = await this.encryptPassword(data.password);
     const newUser = await User.create(data);

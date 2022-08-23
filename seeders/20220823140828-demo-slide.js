@@ -3,12 +3,14 @@
 module.exports = {
   up: async (queryInterface, Sequelize) => {
     await queryInterface.bulkInsert(
-      'Testimonials',
+      'Slides',
       [
         {
-          name: 'John Doe',
-          image: 'https://www.designevo.com/res/templates/thumb_small/colorful-hand-and-warm-community.png',
-          content: 'Testimonial test',
+          imageUrl:
+            'https://educowebmedia.blob.core.windows.net/educowebmedia/educospain/media/images/blog/ong-y-ods.jpg',
+          text: 'ONG',
+          order: 1,
+          organizationId: 1,
           createdAt: new Date(),
           updatedAt: new Date()
         }
@@ -18,6 +20,6 @@ module.exports = {
   },
 
   down: async (queryInterface, Sequelize) => {
-    await queryInterface.bulkDelete('Testimonials', null, {});
+    await queryInterface.bulkDelete('Slides', null, {});
   }
 };
