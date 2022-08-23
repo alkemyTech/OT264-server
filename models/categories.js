@@ -1,7 +1,7 @@
 'use strict';
 const { Model } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
-  class categories extends Model {
+  class Categories extends Model {
     static associate(models) {
       // define association here
     }
@@ -14,9 +14,9 @@ module.exports = (sequelize, DataTypes) => {
     },
     {
       sequelize,
-      modelName: 'categories',
+      modelName: 'Categories',
       paranoid: true
     }
   );
-  return categories;
+  return Categories;
 };
