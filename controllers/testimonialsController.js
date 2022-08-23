@@ -1,5 +1,3 @@
-class TestimonialController {
+class TestimonialController {}
 
-}
-
-module.exports = TestimonialController
+module.exports = TestimonialController;
