@@ -1,5 +1,3 @@
-class UserController {
-
-}
+class UserController {}
 
 module.exports = UserController;
