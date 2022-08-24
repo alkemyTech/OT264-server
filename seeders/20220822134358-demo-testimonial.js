@@ -3,16 +3,12 @@
 module.exports = {
   up: async (queryInterface, Sequelize) => {
     await queryInterface.bulkInsert(
-      'Users',
+      'Testimonials',
       [
         {
-          firstName: 'Usuario',
-          lastName: 'Demo',
-          email: 'test@test.com',
-          // Important: Password not encrypted yet!
-          password: '1234',
-          roleId: 1,
+          name: 'John Doe',
           image: 'https://www.designevo.com/res/templates/thumb_small/colorful-hand-and-warm-community.png',
+          content: 'Testimonial test',
           createdAt: new Date(),
           updatedAt: new Date()
         }
@@ -22,11 +18,6 @@ module.exports = {
   },
 
   down: async (queryInterface, Sequelize) => {
-    /**
-     * Add commands to revert seed here.
-     *
-     * Example:
-     * await queryInterface.bulkDelete('People', null, {});
-     */
+    await queryInterface.bulkDelete('Testimonials', null, {});
   }
 };
