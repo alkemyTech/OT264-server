@@ -15,13 +15,20 @@ class UserController {
     }
   }
 
-  async create(data) {
-    data.password = await this.encryptPassword(data.password);
-    const newUser = await User.create(data);
-    delete newUser.dataValues.password;
-    return newUser;
+  static async create(req, res) {
+    const data = req.body;
+    try {
+      data.password = await UserController.encryptPassword(data.password);
+      const newUser = await User.create(data);
+      delete newUser.dataValues.password;
+      res.status(200).send(newUser);
+    } catch (err) {
+      console.log(err);
+      res.status(500).json({ msg: 'Internal Server error' });
+    }
   }
-  async encryptPassword(password) {
+
+  static async encryptPassword(password) {
     const salt = await bcrypt.genSalt();
     const passwordEncripted = await bcrypt.hash(password, salt);
     return passwordEncripted;

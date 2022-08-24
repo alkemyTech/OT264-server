@@ -1,10 +1,9 @@
 const express = require('express');
 const router = express.Router();
 const { body } = require('express-validator');
-const { validateField } = require('../middlewares/validateField');
+const Validator = require('../middlewares/validator');
 
 const UserController = require('../controllers/userController');
-const userController = new UserController();
 
 router.post(
   '/register',
@@ -12,16 +11,8 @@ router.post(
   body('lastName', 'lastName required').notEmpty(),
   body('email', 'invalid email').notEmpty().bail().isEmail(),
   body('password', 'password required').notEmpty(),
-  validateField,
-  async function (req, res) {
-    try {
-      const response = await userController.create(req.body);
-      res.send(response);
-    } catch (error) {
-      console.log(error);
-      res.send('Error en registro');
-    }
-  }
+  Validator.validateField,
+  UserController.create
 );
 
 module.exports = router;
