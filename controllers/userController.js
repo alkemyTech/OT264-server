@@ -33,6 +33,26 @@ class UserController {
     const passwordEncripted = await bcrypt.hash(password, salt);
     return passwordEncripted;
   }
+
+  static async login(req, res) {
+    const { email, password } = req.body;
+    try {
+      const user = await User.findOne({ where: { email: email } });
+      if (user) {
+        const validPass = await bcrypt.compareSync(password, user.password);
+        if (validPass) {
+          res.status(200).json('Valid email and password');
+        } else {
+          res.json('Wrong password');
+        }
+      } else {
+        res.status(404).json('User not found');
+      }
+    } catch (e) {
+      console.log(e);
+      res.status(500).json('ok: false');
+    }
+  }
 }
 
 module.exports = UserController;

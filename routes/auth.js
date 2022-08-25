@@ -15,4 +15,12 @@ router.post(
   UserController.create
 );
 
+router.post(
+  '/login',
+  body('email', 'invalid email').notEmpty().bail().isEmail(),
+  body('password', 'password required').notEmpty(),
+  Validator.validateField,
+  UserController.login
+);
+
 module.exports = router;
