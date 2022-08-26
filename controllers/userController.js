@@ -1,5 +1,6 @@
 const { User } = require('../models');
 const bcrypt = require('bcrypt');
+const JwtUtils = require('../utils/jwtUtils');
 
 class UserController {
   static async deleteUser(req, res) {
@@ -39,9 +40,11 @@ class UserController {
     try {
       const user = await User.findOne({ where: { email: email } });
       if (user) {
-        const validPass = await bcrypt.compareSync(password, user.password);
+        const validPass = bcrypt.compareSync(password, user.password);
         if (validPass) {
-          res.status(200).json('Valid email and password');
+          const { email } = user.dataValues;
+          const token = JwtUtils.generateToken({ email });
+          res.status(200).json({ msg: 'Valid email and password', token });
         } else {
           res.json('Wrong password');
         }
