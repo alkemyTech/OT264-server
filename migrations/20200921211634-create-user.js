@@ -1,4 +1,5 @@
 'use strict';
+const STANDARD_ROLE = 2;
 module.exports = {
   up: async (queryInterface, Sequelize) => {
     await queryInterface.createTable('Users', {
@@ -18,7 +19,8 @@ module.exports = {
       },
       email: {
         type: Sequelize.STRING,
-        allowNull: false
+        allowNull: false,
+        unique: true
       },
       password: {
         type: Sequelize.STRING,
@@ -34,7 +36,8 @@ module.exports = {
           key: 'id'
         },
         onUpdate: 'CASCADE',
-        onDelete: 'SET NULL'
+        onDelete: 'SET NULL',
+        defaultValue: STANDARD_ROLE
       },
       deletedAt: {
         type: Sequelize.DATE
