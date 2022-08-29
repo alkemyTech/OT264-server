@@ -24,6 +24,14 @@ class UserController {
     }
   }
 
+  static async getByEmail(email) {
+    const user = await User.findOne({ where: { email } });
+    if (!user) {
+      throw new Error('Email Invalido');
+    }
+    return user.dataValues;
+  }
+
   static async create(req, res) {
     const data = req.body;
     try {
