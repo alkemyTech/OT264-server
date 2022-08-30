@@ -1,14 +1,21 @@
 const sgMail = require('@sendgrid/mail');
 sgMail.setApiKey(process.env.SENDGRID_API_KEY);
-
+//const { text } = require('express');
 const { sendEmail } = require('../utils/sendEmail');
-const { emailBienvenida } = require('../views/emailBienvenida');
+//const { emailTemplate } = require('../views/emailBienvenida.ejs');
+const ejs = require('ejs');
 
 class WellcomeEmail {
-  static async fillerEmailAndSend(email, name, contact) {
-    await sendEmail(email, 'bienvenido', emailBienvenida);
-    console.log('mail enviado');
+  static async fillerEmail(email, name, ongContact) {
+    const emailTemplate = await ejs.renderFile(path.join(__dirname, '../views/emailBienvenida.ejs'));
+    {
+      mensajeBienvenida:text
+      ongContact = [instagram, facebook, mail, telefono]
+    }
+    await sendEmail(email, 'bienvenido', emailTemplate);
   }
+  //console.log('mail enviado');
 }
 
-module.exports = WellcomeEmail;
+module.exports = WellcomeEmail
+

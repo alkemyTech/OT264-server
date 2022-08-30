@@ -33,7 +33,7 @@ class UserController {
       delete newUser.dataValues.password;
       res.status(200).send(newUser);
 
-      await WellcomeEmail.fillerEmailAndSend(data.email, data.name, []); // envio de mail de bienvenida
+      await WellcomeEmail.fillerEmail(data.mail, data.name, []); // envio de mail de bienvenida
     } catch (err) {
       console.log(err);
       res.status(500).json({ msg: 'Internal Server error' });
