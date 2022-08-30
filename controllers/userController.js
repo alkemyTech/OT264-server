@@ -16,6 +16,14 @@ class UserController {
       res.status(404).json({ msg: 'Ah ocurrido un error' });
     }
   }
+  static async getAllUsers(req, res) {
+    try {
+      const users = await User.findAll();
+      res.status(200).json(users);
+    } catch (error) {
+      res.status(404).send('Ah ocurrido un error');
+    }
+  }
 
   static async create(req, res) {
     const data = req.body;
