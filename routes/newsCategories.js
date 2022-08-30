@@ -4,5 +4,7 @@ const NewsCategoriesController = require('../controllers/newsCategoriesControlle
 const RoleValidator = require('../middlewares/roleValidator');
 
 router.post('/', RoleValidator.isAdmin, NewsCategoriesController.create);
+router.delete('/:id', RoleValidator.isAdmin, NewsCategoriesController.deleteCategories);
+
 
 module.exports = router;
