@@ -1,9 +1,15 @@
+const JwtUtils = require('../utils/jwtUtils');
+const UserController = require('../controllers/userController');
+
 class RoleValidator {
   static async isAdmin(req, res, next) {
-    //Verify that user is athenticate (req.user exists)
-    const user = req.user;
-    if (!user) {
-      return res.status(401).send({ msg: 'User must be authenticated' });
+    //Extract email from token and get user data
+    let user;
+    try {
+      const payloadToken = JwtUtils.verifyToken(req);
+      user = await UserController.getByEmail(payloadToken.email);
+    } catch (error) {
+      return res.status(401).send(error.message);
     }
     const { roleId } = user;
     //Verify role admin -> In Roles Table id 1 is admin
