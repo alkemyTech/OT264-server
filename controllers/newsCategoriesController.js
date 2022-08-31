@@ -1,4 +1,5 @@
 const { Categories } = require('../models');
+const categories = require('../models/categories');
 const { NotFound } = require('../utils/error');
 
 class NewsCategoriesController {
@@ -12,13 +13,30 @@ class NewsCategoriesController {
       res.status(500).json({ msg: 'Internal Server error' });
     }
   }
-  static async show(req, res) {
+  static async deleteCategories(req, res) {
+    const { id } = req.params;
     try {
-      const showCategories = await Categories.findAll();
+      const categories = await Categories.destroy({ where: { id } });
+
+      if (categories) {
+        console.log(categories.name);
+        return res.status(200).send({ msg: 'Deleted category' });
+      }
+      return res.status(404).send({ msg: 'Categorie not found' });
+    } catch (error) {
+      res.status(404).json({ msg: 'An error has occurred' });
+    }
+  }
+  static async show(req, res) {
+    const { id } = req.params;
+    try {
+      const showCategories = await Categories.findOne({ where: { id } });
+      if (!categories) {
+        return res.send(new NotFound('Categorie not found'));
+      }
       res.status(200).json(showCategories);
     } catch (error) {
-      res.status(404).send('Ah ocurrido un error');
-      //throw new NotFound();
+      return res.send(new NotFound());
     }
   }
 }

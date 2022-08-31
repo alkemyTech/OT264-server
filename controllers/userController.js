@@ -72,6 +72,14 @@ class UserController {
       res.status(500).json('ok: false');
     }
   }
+
+  static async authenticateMe(req, res) {
+    let user = req.user;
+    delete user.password;
+    delete user.roleId;
+    delete user.deletedAt;
+    res.status(200).send({ msg: 'Datos del usuario authenticado', user });
+  }
 }
 
 module.exports = UserController;
