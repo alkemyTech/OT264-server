@@ -14,14 +14,12 @@ class NewsCategoriesController {
   static async deleteCategories(req, res) {
     const { id } = req.params;
     try {
-      const categories = await Categories.destroy({where:{id}});
+      const categories = await Categories.destroy({ where: { id } });
 
       if (categories) {
-        console.log(categories.name)
-        return res.status(200).send({ msg: 'Deleted category'});
+        return res.status(200).send({ msg: 'Deleted category' });
       }
-      return res.status(404).send({ msg: 'Categorie not found'});
-
+      return res.status(404).send({ msg: 'Categorie not found' });
     } catch (error) {
       res.status(404).json({ msg: 'An error has occurred' });
     }

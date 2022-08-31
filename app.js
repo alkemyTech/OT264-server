@@ -12,7 +12,7 @@ const organizationRouter = require('./routes/organization');
 const authRouter = require('./routes/auth');
 const newsCategoriesRouter = require('./routes/newsCategories');
 const activitiesRouter = require('./routes/activities');
-const newsRouter = require('./routes/news.js');
+const newsRouter = require('./routes/news');
 
 const app = express();
 app.use(cors());

@@ -18,4 +18,6 @@ router.post(
   NewsController.create
 );
 
+router.get('/:id', RoleValidator.isAdmin, NewsController.getById);
+
 module.exports = router;
