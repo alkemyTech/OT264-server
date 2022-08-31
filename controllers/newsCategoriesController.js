@@ -17,7 +17,6 @@ class NewsCategoriesController {
       const categories = await Categories.destroy({ where: { id } });
 
       if (categories) {
-        console.log(categories.name);
         return res.status(200).send({ msg: 'Deleted category' });
       }
       return res.status(404).send({ msg: 'Categorie not found' });
