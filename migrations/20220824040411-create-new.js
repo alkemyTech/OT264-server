@@ -1,43 +1,30 @@
 'use strict';
-const STANDARD_ROLE = 2;
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    await queryInterface.createTable('Users', {
+    await queryInterface.createTable('News', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      firstName: {
-        type: Sequelize.STRING,
-        allowNull: false
+      name: {
+        type: Sequelize.STRING
       },
-      lastName: {
-        type: Sequelize.STRING,
-        allowNull: false
-      },
-      email: {
-        type: Sequelize.STRING,
-        allowNull: false,
-        unique: true
-      },
-      password: {
-        type: Sequelize.STRING,
-        allowNull: false
+      content: {
+        type: Sequelize.TEXT
       },
       image: {
         type: Sequelize.STRING
       },
-      roleId: {
+      categoriesId: {
         type: Sequelize.INTEGER,
         references: {
-          model: 'Roles',
+          model: 'Categories',
           key: 'id'
         },
         onUpdate: 'CASCADE',
-        onDelete: 'SET NULL',
-        defaultValue: STANDARD_ROLE
+        onDelete: 'SET NULL'
       },
       deletedAt: {
         type: Sequelize.DATE
@@ -46,6 +33,7 @@ module.exports = {
         allowNull: false,
         type: Sequelize.DATE
       },
+
       updatedAt: {
         allowNull: false,
         type: Sequelize.DATE
@@ -53,6 +41,6 @@ module.exports = {
     });
   },
   down: async (queryInterface, Sequelize) => {
-    await queryInterface.dropTable('Users');
+    await queryInterface.dropTable('News');
   }
 };
