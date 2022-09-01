@@ -17,7 +17,7 @@ module.exports = {
       image: {
         type: Sequelize.STRING
       },
-      categoryId: {
+      categoriesId: {
         type: Sequelize.INTEGER,
         references: {
           model: 'Categories',

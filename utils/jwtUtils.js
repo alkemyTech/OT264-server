@@ -8,9 +8,12 @@ class JwtUtils {
   }
 
   static verifyToken(req) {
-    const token = req.headers.authorization;
-    if (!token) {
-      throw new Error('Token requerido');
+    const autHeader = req.headers.authorization || '';
+    let token;
+    if (autHeader.startsWith('Bearer ')) {
+      token = autHeader.substring(7, autHeader.length);
+    } else {
+      throw new Error('Token requerido - Bearer token');
     }
     const payload = jwt.verify(token, jwtSecret);
     return payload;
