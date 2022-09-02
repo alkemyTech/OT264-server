@@ -27,6 +27,7 @@ class NewsCategoriesController {
       res.status(404).json({ msg: 'An error has occurred' });
     }
   }
+  //muestra solo los nombres de las categorias
   static async nameCategories(req, res) {
     try {
       const option = await Categories.findAll({ attributes: ['name'] });
