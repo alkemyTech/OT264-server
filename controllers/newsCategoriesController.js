@@ -27,14 +27,12 @@ class NewsCategoriesController {
       res.status(404).json({ msg: 'An error has occurred' });
     }
   }
-  static async show(req, res) {
-    const { id } = req.params;
+  static async nameCategories(req, res) {
     try {
-      const showCategories = await Categories.findOne({ where: { id } });
-      if (showCategories) {
-        res.status(200).json(showCategories);
+      const option = await Categories.findAll({ attributes: ['name'] });
+      if (option) {
+        res.status(200).json(option);
       }
-      return res.send(new NotFound('Categorie not found'));
     } catch (error) {
       return res.send(new NotFound());
     }
