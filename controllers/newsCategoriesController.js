@@ -58,7 +58,6 @@ class NewsCategoriesController {
       if (showCategories) {
         res.status(200).json(showCategories);
       }
-      return res.send(new NotFound('Categorie not found'));
     } catch (error) {
       return res.send(new NotFound());
     }
