@@ -13,6 +13,7 @@ const authRouter = require('./routes/auth');
 const newsCategoriesRouter = require('./routes/newsCategories');
 const activitiesRouter = require('./routes/activities');
 const newsRouter = require('./routes/news');
+const contactsRouter = require('./routes/contacts');
 const slidesRouter = require('./routes/slides');
 
 const app = express();
@@ -35,6 +36,7 @@ app.use('/auth', authRouter);
 app.use('/categories', newsCategoriesRouter);
 app.use('/activities', activitiesRouter);
 app.use('/news', newsRouter);
+app.use('/contacts', contactsRouter);
 app.use('/slides', slidesRouter);
 
 // catch 404 and forward to error handler
