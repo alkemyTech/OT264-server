@@ -27,6 +27,15 @@ class SlidesController {
       return res.status(404).json({ msg: 'Slide not found' });
     }
   }
+
+  static async getAll(req, res) {
+    try {
+      const slides = await Slide.findAll({ attributes: [['imageUrl', 'miniatura'], 'order'] });
+      res.status(200).json(slides);
+    } catch (error) {
+      res.status(404).send('Ah ocurrido un error');
+    }
+  }
 }
 
 module.exports = SlidesController;
