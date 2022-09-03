@@ -3,9 +3,9 @@ const { New, Categories } = require('../models');
 class NewsController {
   static async create(req, res) {
     const data = req.body;
-    const { categoryId } = data;
+    const { categoriesId } = data;
     try {
-      const category = await Categories.findOne({ where: { id: categoryId } });
+      const category = await Categories.findOne({ where: { id: categoriesId } });
       if (!category) {
         throw new Error('Categoria no existe');
       }
@@ -31,6 +31,18 @@ class NewsController {
       return res.status(500).json({ msg: 'Internal Server error' });
     }
   }
+  static async deleteNew(req, res) {
+    //const { id } = req.params;
+    try {
+      const news = await New.destroy({ where: { id: req.params.id } });
+      console.log('dfasdfa');
+      if (news) {
+        return res.status(200).send({ msg: 'Deleted new' });
+      }
+      return res.status(400).json({ msg: 'New not found' });
+    } catch (error) {
+      res.status(404).json({ msg: 'An error has occurred' });
+    }
+  }
 }
-
 module.exports = NewsController;
