@@ -1,4 +1,5 @@
 const { Categories } = require('../models');
+const { NotFound } = require('../utils/error');
 
 class NewsCategoriesController {
   static async create(req, res) {
@@ -49,6 +50,17 @@ class NewsCategoriesController {
     }
 
     return res.status(200).send({ msg: 'Category updated' });
+  }
+  static async show(req, res) {
+    const { id } = req.params;
+    try {
+      const showCategories = await Categories.findOne({ where: { id } });
+      if (showCategories) {
+        res.status(200).json(showCategories);
+      }
+    } catch (error) {
+      return res.send(new NotFound());
+    }
   }
 }
 module.exports = NewsCategoriesController;
