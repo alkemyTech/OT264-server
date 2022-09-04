@@ -3,13 +3,13 @@
 module.exports = {
   up: async (queryInterface, Sequelize) => {
     await queryInterface.bulkInsert(
-      'News',
+      'Contacts',
       [
         {
-          name: 'Vuelta al cole',
-          content: 'campaña para juntar utiles escolares',
-          image: 'https://drive.google.com/drive/u/0/folders/1uQtPNC9-fDrioNhcsoIEZofq3ixBmxfJ',
-          categoriesId: 1,
+          name: 'Contacto 1',
+          phone: 45612315,
+          email: 'contacto@test.com',
+          message: 'Esto es un mensaje de prueba',
           createdAt: new Date(),
           updatedAt: new Date(),
           deletedAt: null
@@ -20,6 +20,7 @@ module.exports = {
   },
 
   down: async (queryInterface, Sequelize) => {
-    await queryInterface.bulkDelete('News', null, {});
+
+    await queryInterface.bulkDelete('Contacts', null, {});
   }
 };

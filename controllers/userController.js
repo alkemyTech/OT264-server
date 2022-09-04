@@ -1,6 +1,7 @@
 const { User } = require('../models');
 const bcrypt = require('bcrypt');
 const JwtUtils = require('../utils/jwtUtils');
+const WellcomeEmail = require('../services/welcomeEmail');
 
 class UserController {
   static async deleteUser(req, res) {
@@ -39,6 +40,8 @@ class UserController {
       const newUser = await User.create(data);
       delete newUser.dataValues.password;
       res.status(200).send(newUser);
+
+      await WellcomeEmail.fillerEmail(data.mail, data.mensajeBienvenida, []); // envio de mail de bienvenida
     } catch (err) {
       console.log(err);
       res.status(500).json({ msg: 'Internal Server error' });

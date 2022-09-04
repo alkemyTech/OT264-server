@@ -1,4 +1,5 @@
 const { Categories } = require('../models');
+const { NotFound } = require('../utils/error');
 const categories = require('../models/categories');
 const { NotFound } = require('../utils/error');
 
@@ -19,7 +20,10 @@ class NewsCategoriesController {
       const categories = await Categories.destroy({ where: { id } });
 
       if (categories) {
+<<<<<<< HEAD
         console.log(categories.name);
+=======
+>>>>>>> 2bf08352f304e133c50f6908030e3f88def2af8c
         return res.status(200).send({ msg: 'Deleted category' });
       }
       return res.status(404).send({ msg: 'Categorie not found' });
@@ -27,12 +31,46 @@ class NewsCategoriesController {
       res.status(404).json({ msg: 'An error has occurred' });
     }
   }
-  //muestra solo los nombres de las categorias
+<<<<<<< HEAD
   static async nameCategories(req, res) {
     try {
       const option = await Categories.findAll({ attributes: ['name'] });
       if (option) {
         res.status(200).json(option);
+=======
+
+  static async updateCategory(req, res) {
+    const { id } = req.params;
+    const data = req.body;
+    let category;
+
+    try {
+      category = await Categories.findOne({ where: { id } });
+    } catch (error) {
+      console.log(error);
+      return res.status(500).send({ msg: 'Internal server error' });
+    }
+
+    if (!category) {
+      return res.status(400).send({ msg: 'Category not found' });
+    }
+
+    try {
+      await Categories.update(data, { where: { id } });
+    } catch (error) {
+      console.log(error);
+      return res.status(500).send({ msg: 'Internal server error' });
+    }
+
+    return res.status(200).send({ msg: 'Category updated' });
+  }
+  static async show(req, res) {
+    const { id } = req.params;
+    try {
+      const showCategories = await Categories.findOne({ where: { id } });
+      if (showCategories) {
+        res.status(200).json(showCategories);
+>>>>>>> 2bf08352f304e133c50f6908030e3f88def2af8c
       }
     } catch (error) {
       return res.send(new NotFound());
