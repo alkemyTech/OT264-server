@@ -19,7 +19,7 @@ router.post(
 );
 
 router.get('/:id', RoleValidator.isAdmin, NewsController.getById);
-router.get('/:id', RoleValidator.isAdmin, NewsController.deleteNew);
-//router.get('/:id', NewsController.deleteNew);
+router.delete('/:id', RoleValidator.isAdmin, NewsController.deleteNew);
+//router.get('/:id', NewsController.deleteNew);m
 
 module.exports = router;
