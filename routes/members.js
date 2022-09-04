@@ -15,4 +15,7 @@ router.post(
   Validator.validateField,
   MembersController.create
 );
+
+router.delete('/:id', MembersController.deleteMember);
+
 module.exports = router;
