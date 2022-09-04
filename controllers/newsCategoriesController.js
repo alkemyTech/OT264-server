@@ -1,7 +1,5 @@
 const { Categories } = require('../models');
 const { NotFound } = require('../utils/error');
-const categories = require('../models/categories');
-const { NotFound } = require('../utils/error');
 
 class NewsCategoriesController {
   static async create(req, res) {
@@ -20,10 +18,6 @@ class NewsCategoriesController {
       const categories = await Categories.destroy({ where: { id } });
 
       if (categories) {
-<<<<<<< HEAD
-        console.log(categories.name);
-=======
->>>>>>> 2bf08352f304e133c50f6908030e3f88def2af8c
         return res.status(200).send({ msg: 'Deleted category' });
       }
       return res.status(404).send({ msg: 'Categorie not found' });
@@ -31,14 +25,16 @@ class NewsCategoriesController {
       res.status(404).json({ msg: 'An error has occurred' });
     }
   }
-<<<<<<< HEAD
-  static async nameCategories(req, res) {
+  static async nameCategories(name, res) {
     try {
       const option = await Categories.findAll({ attributes: ['name'] });
       if (option) {
         res.status(200).json(option);
-=======
-
+      }
+    } catch (error) {
+      return res.send(new NotFound());
+    }
+  }
   static async updateCategory(req, res) {
     const { id } = req.params;
     const data = req.body;
@@ -70,7 +66,6 @@ class NewsCategoriesController {
       const showCategories = await Categories.findOne({ where: { id } });
       if (showCategories) {
         res.status(200).json(showCategories);
->>>>>>> 2bf08352f304e133c50f6908030e3f88def2af8c
       }
     } catch (error) {
       return res.send(new NotFound());
