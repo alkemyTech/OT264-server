@@ -32,16 +32,12 @@ class NewsController {
     }
   }
   static async deleteNew(req, res) {
-    try {
-      const news = await New.destroy({ where: { id: req.params.id } });
-      console.log('dfasdfa');
-      if (news) {
-        return res.status(200).send({ msg: 'Deleted new' });
-      }
-      return res.send(new NotFound());
-    } catch (error) {
-      return res.send(new NotFound('An error has occurred'));
+    const news = await New.destroy({ where: { id: req.params.id } });
+    if (news) {
+      return res.status(200).send({ msg: 'Deleted new' });
     }
+    //return res.send(new NotFound());
+    return res.status(200).send({ msg: 'no encontrado' });
   }
 }
 module.exports = NewsController;
