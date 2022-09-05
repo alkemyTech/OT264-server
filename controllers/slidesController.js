@@ -36,6 +36,18 @@ class SlidesController {
       res.status(404).send('Ah ocurrido un error');
     }
   }
+  static async delete(req, res) {
+    try {
+      const { id } = req.params;
+      const deleteSlide = await Slide.destroy({ where: { id } });
+      if (deleteSlide) {
+        return res.status(200).send({ msg: `El Slide fue eliminado`, deleteSlide });
+      }
+      return res.status(400).json({ msg: 'Slide inexistiente' });
+    } catch (error) {
+      res.status(404).json({ msg: 'Ah ocurrido un error' });
+    }
+  }
 }
 
 module.exports = SlidesController;

@@ -6,5 +6,5 @@ const RoleValidator = require('../middlewares/roleValidator');
 router.put('/:id', RoleValidator.isAdmin, SlidesController.updateSlides);
 router.get('/:id', RoleValidator.isAdmin, SlidesController.getById);
 router.get('/', RoleValidator.isAdmin, SlidesController.getAll);
-
+router.delete('/:id', RoleValidator.isAdmin, SlidesController.delete);
 module.exports = router;
