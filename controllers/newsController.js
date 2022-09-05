@@ -34,9 +34,8 @@ class NewsController {
   static async updateNews(req, res) {
     const { id } = req.params;
     const data = req.body;
-
     try {
-      const newsUpdated = await New.findByPk(id);
+      const newsUpdated = await New.findOne({ where: { id } });
       if (newsUpdated) {
         await New.update({ ...data }, { where: { id } });
         const newsUpdated = await New.findOne({ where: { id } });
