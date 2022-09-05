@@ -1,4 +1,5 @@
 const { Testimonial } = require('../models');
+const { NotFound } = require('../utils/error');
 
 class TestimonialController {
   static async updateTestimonial(req, res) {
@@ -20,6 +21,13 @@ class TestimonialController {
       console.log(err);
       res.status(500).send({ msg: 'Internal Server error' });
     }
+  }
+  static async deleteTestimonial(req, res) {
+    const testimonial = await Testimonial.destroy({ where: { id: req.params.id } });
+    if (testimonial) {
+      return res.status(200).send({ msg: 'Deleted Testimonial' });
+    }
+    return res.send(new NotFound());
   }
 }
 
