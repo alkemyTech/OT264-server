@@ -25,7 +25,16 @@ class NewsCategoriesController {
       res.status(404).json({ msg: 'An error has occurred' });
     }
   }
-
+  static async nameCategories(name, res) {
+    try {
+      const option = await Categories.findAll({ attributes: ['name'] });
+      if (option) {
+        res.status(200).json(option);
+      }
+    } catch (error) {
+      return res.send(new NotFound());
+    }
+  }
   static async updateCategory(req, res) {
     const { id } = req.params;
     const data = req.body;
