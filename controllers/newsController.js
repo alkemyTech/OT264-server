@@ -36,8 +36,7 @@ class NewsController {
     if (news) {
       return res.status(200).send({ msg: 'Deleted new' });
     }
-    //return res.send(new NotFound());
-    return res.status(200).send({ msg: 'no encontrado' });
+    return res.send(new NotFound());
   }
 }
 module.exports = NewsController;
