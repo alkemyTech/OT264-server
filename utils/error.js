@@ -16,7 +16,16 @@ class UserExistsError extends Error {
     this.name = 'UserExistsError';
   }
 }
+class NotFound extends Error {
+  constructor(message) {
+    super(message);
+    this.message = message || 'There is nothig here';
+    this.status = 404;
+    this.name = 'NotFound';
+  }
+}
 module.exports = {
   JWTAuthenticationError,
-  UserExistsError
+  UserExistsError,
+  NotFound
 };
