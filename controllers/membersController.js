@@ -2,12 +2,12 @@ const { Member } = require('../models');
 
 class MembersController {
   static async create(req, res) {
-    const data = req.body;
+    const { name, facebookUrl, instagramUrl, linkedinUrl, image, description } = req.body;
+    const data = { name, facebookUrl, instagramUrl, linkedinUrl, image, description };
     let newMember;
     try {
       newMember = await Member.create(data);
     } catch (err) {
-      console.log(err);
       return res.status(500).send({ msg: 'Internal Server error' });
     }
     res.status(200).send(newMember);
