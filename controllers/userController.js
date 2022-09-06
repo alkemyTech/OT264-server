@@ -84,6 +84,23 @@ class UserController {
     delete user.deletedAt;
     res.status(200).send({ msg: 'Datos del usuario authenticado', user });
   }
+  static async updateUser(req, res) {
+    const id = req.params.id;
+    const datosUser = req.body;
+    const { password } = datosUser;
+
+    if (password) {
+      const salt = bcrypt.genSaltSync();
+      const newPassword = bcrypt.hashSync(password, salt);
+      datosUser.password = newPassword;
+    }
+    try {
+      await User.update(datosUser, { where: { id } });
+      res.status(200).json({ msg: 'updated user' });
+    } catch (error) {
+      res.status(404).json({ msg: 'user does not exist' });
+    }
+  }
 }
 
 module.exports = UserController;
