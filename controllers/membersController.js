@@ -24,6 +24,14 @@ class MembersController {
       res.status(500).json({ msg: 'Internal server error' });
     }
   }
+  static async getAll(req, res) {
+    try {
+      const member = await Member.findAll();
+      res.status(200).json(member);
+    } catch (error) {
+      res.status(500).send({ msg: 'Internal Server error' });
+    }
+  }
 }
 
 module.exports = MembersController;
