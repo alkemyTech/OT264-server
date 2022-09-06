@@ -1,25 +1,22 @@
-const sgMail = require('@sendgrid/mail');
 const ejs = require('ejs');
 const path = require('path');
+const sendEmail = require('../utils/sendEmail');
+const sgMail = require('@sendgrid/mail');
 sgMail.setApiKey(process.env.SENDGRID_API_KEY);
-const { sendEmail } = require('../utils/sendEmail');
+const EMAIL_MESSAGE = 'Mail: somosfundacionmas@gmail.com';
+const CONTACT_MESSAGE = 'Teléfono de contacto: 1160112988';
 
 class WelcomeEmail {
-  static async fillerMail(email, mensajeBienvenida, ongcontact) {
-    const emailTemplate = await ejs.renderFile(path.join(__dirname, '../views/emailBienvenida.ejs')
-    {
+  static async fillerEmail(email, mensajeBienvenida, ongContact) {
+    const emailTemplate = await ejs.renderFile(path.join(__dirname, '../views/emailBienvenida.ejs'), {
       mensajeBienvenida: mensajeBienvenida,
-      ongcontact: ongcontact
-    })
-    await sendEmail(email, 'bienvenido', emailTemplate)
-
+      ongContacto: [EMAIL_MESSAGE, CONTACT_MESSAGE]
+    });
     try {
-      let res = await sgMail.send(sendEmail);
-      return(res);
-    }
-    catch (error) {
+      await sendEmail(email, mensajeBienvenida, 'Welcome Email', emailTemplate);
+    } catch (error) {
       return error;
-   }
+    }
   }
 }
-module.exports= WellcomeEmail;
+module.exports = WelcomeEmail;
