@@ -3,6 +3,7 @@ const router = express.Router();
 const { body } = require('express-validator');
 const Validator = require('../middlewares/validator');
 const MembersController = require('../controllers/membersController');
+const RoleValidator = require('../middlewares/roleValidator');
 
 router.post(
   '/',
@@ -17,5 +18,5 @@ router.post(
 );
 
 router.delete('/:id', MembersController.deleteMember);
-
+router.get('/', RoleValidator.isAdmin, MembersController.getAll);
 module.exports = router;
