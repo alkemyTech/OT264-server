@@ -49,6 +49,9 @@ module.exports = {
         type: Sequelize.DATE
       }
     });
+    queryInterface.addColumn('Organizations', 'urlFacebook', { type: Sequelize.STRING, allowNull: true });
+    queryInterface.addColumn('Organizations', 'urlInstagram', { type: Sequelize.STRING, allowNull: true });
+    queryInterface.addColumn('Organizations', 'urlLinkedin', { type: Sequelize.STRING, allowNull: true });
   },
   down: async (queryInterface, Sequelize) => {
     await queryInterface.dropTable('Organizations');
