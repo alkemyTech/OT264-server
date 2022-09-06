@@ -3,6 +3,8 @@ const bcrypt = require('bcrypt');
 const JwtUtils = require('../utils/jwtUtils');
 const WelcomeEmail = require('../services/welcomeEmail');
 
+const WELCOME_MESSAGE = 'Bienvenido/a a nuestra ONG';
+
 class UserController {
   static async deleteUser(req, res) {
     try {
@@ -41,7 +43,7 @@ class UserController {
       delete newUser.dataValues.password;
       res.status(200).send(newUser);
 
-      await WelcomeEmail.fillerEmail(data.mail, data.mensajeBienvenida, []); // envio de mail de bienvenida
+      await WelcomeEmail.fillerEmail(data.email, WELCOME_MESSAGE , []);
     } catch (err) {
       console.log(err);
       res.status(500).json({ msg: 'Internal Server error' });
