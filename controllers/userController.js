@@ -1,6 +1,7 @@
 const { User } = require('../models');
 const bcrypt = require('bcrypt');
 const JwtUtils = require('../utils/jwtUtils');
+//const WellcomeEmail = require('../services/welcomeEmail');
 
 class UserController {
   static async deleteUser(req, res) {
@@ -15,6 +16,22 @@ class UserController {
       res.status(404).json({ msg: 'Ah ocurrido un error' });
     }
   }
+  static async getAllUsers(req, res) {
+    try {
+      const users = await User.findAll();
+      res.status(200).json(users);
+    } catch (error) {
+      res.status(404).send('Ah ocurrido un error');
+    }
+  }
+
+  static async getByEmail(email) {
+    const user = await User.findOne({ where: { email } });
+    if (!user) {
+      throw new Error('Email Invalido');
+    }
+    return user.dataValues;
+  }
 
   static async create(req, res) {
     const data = req.body;
@@ -23,6 +40,8 @@ class UserController {
       const newUser = await User.create(data);
       delete newUser.dataValues.password;
       res.status(200).send(newUser);
+
+      //await WellcomeEmail.fillerEmail(data.mail, data.mensajeBienvenida, []); // envio de mail de bienvenida
     } catch (err) {
       console.log(err);
       res.status(500).json({ msg: 'Internal Server error' });
@@ -55,6 +74,14 @@ class UserController {
       console.log(e);
       res.status(500).json('ok: false');
     }
+  }
+
+  static async authenticateMe(req, res) {
+    let user = req.user;
+    delete user.password;
+    delete user.roleId;
+    delete user.deletedAt;
+    res.status(200).send({ msg: 'Datos del usuario authenticado', user });
   }
 }
 

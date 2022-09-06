@@ -33,6 +33,9 @@ module.exports = {
             acompaña a más de 700 personas a través de las áreas de:
             Educación, deportes, primera infancia, salud, alimentación y trabajo
             social.`,
+          urlFacebook: 'Somos_Más',
+          urlInstagram: 'SomosMás',
+          urlLinkedin: 'Fundacion_Somos_Más',
           createdAt: new Date(),
           updatedAt: new Date(),
           deletedAt: null
