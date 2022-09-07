@@ -16,6 +16,9 @@ router.post(
   check('email', 'ingresar un mail valido').optional().isEmail(),
   check('welcomeText', 'ingresar un texto valido').optional(),
   check('aboutUsText', 'ingresar un texto valido').optional(),
+  check('urlFacebook', 'ingresar una direccion valida').optional(),
+  check('urlInstagram', 'ingresar una direccion valida').optional(),
+  check('UrlLinkedin', 'ingresar una direccion valida').optional(),
   Validador.validateField,
   OrganizationController.updateOrganization
 );
