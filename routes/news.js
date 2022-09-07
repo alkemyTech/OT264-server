@@ -11,14 +11,15 @@ router.post(
   body('name', 'name required').notEmpty(),
   body('content', 'content required').notEmpty(),
   body('image', 'image required').notEmpty(),
-  body('categoriesId', 'categoriesId required').notEmpty().bail(),
-  body('categoriesId', 'categoriesId must be int').isInt(),
+  body('categoriesId', 'categoryId required').notEmpty().bail(),
+  body('categoriesId', 'categoryId must be int').isInt(),
   Validator.validateField,
   RoleValidator.isAdmin,
   NewsController.create
 );
 
 router.get('/:id', RoleValidator.isAdmin, NewsController.getById);
+router.delete('/:id', RoleValidator.isAdmin, NewsController.deleteNew);
 router.put(
   '/:id',
   RoleValidator.isAdmin,
