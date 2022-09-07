@@ -4,7 +4,7 @@ class OrganizationController {
   static async getAll(req, res) {
     try {
       const organization = await Organization.findAll({
-        attributes: ['name', 'image', 'phone', 'address']
+        attributes: ['name', 'image', 'phone', 'address', 'urlFacebook', 'urlInstagram', 'urllinkedin']
       });
       const slides = await Slide.findAll({
         attributes: ['imageUrl', 'order']
