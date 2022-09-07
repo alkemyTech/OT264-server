@@ -20,5 +20,16 @@ router.post(
 
 router.get('/:id', RoleValidator.isAdmin, NewsController.getById);
 router.delete('/:id', RoleValidator.isAdmin, NewsController.deleteNew);
+router.put(
+  '/:id',
+  RoleValidator.isAdmin,
+  body('name', 'name required').notEmpty(),
+  body('content', 'content required').notEmpty(),
+  body('image', 'image required').notEmpty(),
+  body('categoriesId', 'categoriesId required').notEmpty().bail(),
+  body('categoriesId', 'categoriesId must be int').isInt(),
+  Validator.validateField,
+  NewsController.updateNews
+);
 
 module.exports = router;

@@ -1,7 +1,8 @@
 const { User } = require('../models');
 const bcrypt = require('bcrypt');
 const JwtUtils = require('../utils/jwtUtils');
-const WellcomeEmail = require('../services/welcomeEmail');
+const WelcomeEmail = require('../services/welcomeEmail');
+const WELCOME_MESSAGE = 'Bienvenido/a a nuestra ONG';
 
 class UserController {
   static async deleteUser(req, res) {
@@ -41,7 +42,7 @@ class UserController {
       delete newUser.dataValues.password;
       res.status(200).send(newUser);
 
-      await WellcomeEmail.fillerEmail(data.mail, data.mensajeBienvenida, []); // envio de mail de bienvenida
+      await WelcomeEmail.fillerEmail(data.email, WELCOME_MESSAGE, []);
     } catch (err) {
       console.log(err);
       res.status(500).json({ msg: 'Internal Server error' });
@@ -82,6 +83,23 @@ class UserController {
     delete user.roleId;
     delete user.deletedAt;
     res.status(200).send({ msg: 'Datos del usuario authenticado', user });
+  }
+  static async updateUser(req, res) {
+    const id = req.params.id;
+    const datosUser = req.body;
+    const { password } = datosUser;
+
+    if (password) {
+      const salt = bcrypt.genSaltSync();
+      const newPassword = bcrypt.hashSync(password, salt);
+      datosUser.password = newPassword;
+    }
+    try {
+      await User.update(datosUser, { where: { id } });
+      res.status(200).json({ msg: 'updated user' });
+    } catch (error) {
+      res.status(404).json({ msg: 'user does not exist' });
+    }
   }
 }
 

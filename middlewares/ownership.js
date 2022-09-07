@@ -1,10 +1,9 @@
 const { JWTAuthenticationError, UserExistsError } = require('../utils/error');
 const UserController = require('../controllers/userController');
 const JwtUtils = require('../utils/jwtUtils');
-const { User } = require('../models');
 
 class Ownership {
-  static async isAdmin(req, res, next) {
+  static async isUser(req, res, next) {
     let user;
     try {
       const payload = JwtUtils.verifyToken(req);
@@ -18,11 +17,10 @@ class Ownership {
     req.user = user;
     try {
       const { id } = user;
-      const verifiedUser = await User.findByPk(id);
-      if (verifiedUser.roleId === 1) {
+      if (user.roleId === 1 || id == req.params.id) {
         next();
       } else {
-        res.status(403).json({ msg: 'Admin role necessary' });
+        res.status(403).json({ msg: 'Not user found' });
       }
     } catch (e) {
       res.status(500).json({ msg: 'Internal Server error' });

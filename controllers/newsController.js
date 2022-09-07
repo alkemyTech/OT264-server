@@ -31,12 +31,29 @@ class NewsController {
       return res.status(500).json({ msg: 'Internal Server error' });
     }
   }
+
   static async deleteNew(req, res) {
     const news = await New.destroy({ where: { id: req.params.id } });
     if (news) {
       return res.status(200).send({ msg: 'Deleted new' });
     }
     return res.send(new NotFound());
+  }
+  static async updateNews(req, res) {
+    const { id } = req.params;
+    const data = req.body;
+    try {
+      const newsUpdated = await New.findOne({ where: { id } });
+      if (newsUpdated) {
+        await New.update({ ...data }, { where: { id } });
+        const newsUpdated = await New.findOne({ where: { id } });
+        return res.status(200).json(newsUpdated);
+      } else {
+        return res.status(404).json({ msg: 'News not found' });
+      }
+    } catch (error) {
+      return res.status(500).json({ msg: 'Internal Server error' });
+    }
   }
 }
 module.exports = NewsController;
