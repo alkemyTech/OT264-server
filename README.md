@@ -28,7 +28,7 @@ npx sequelize-cli db:seed:all
 ```bash
 npm start
 ```
-## Start local server
+## Users for testing
 
 The database has 10 administrator users and 10 non-administrators.
 
