@@ -32,11 +32,11 @@ npm start
 
 The database has 10 administrator users and 10 non-administrators.
 
-###Admin:
+### _Admin:_
 - *Email*: isAdmin_`X`@test.com
 - *Password*: userAdmin_`X`
 
-###No Admin:
+### _No Admin:_
 - *Email*: noAdmin_`X`@test.com
 - *Password*: noAdmin_`X`
 
