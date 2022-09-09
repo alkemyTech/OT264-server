@@ -1,4 +1,5 @@
 const { Member } = require('../models');
+const { NotFound } = require('../utils/error');
 
 class MembersController {
   static async create(req, res) {
@@ -31,6 +32,16 @@ class MembersController {
     } catch (error) {
       res.status(500).send({ msg: 'Internal Server error' });
     }
+  }
+  static async updateMember(req, res) {
+    const id = req.params.id;
+    const data = req.body;
+    const memberExist = await Member.findByPk(id);
+    await Member.update({ ...data }, { where: { id } });
+    if (memberExist) {
+      return res.send('Member updated successfully');
+    }
+    return res.send(new NotFound());
   }
 }
 
