@@ -2,6 +2,40 @@ const { New, Categories } = require('../models');
 const { NotFound } = require('../utils/error');
 
 class NewsController {
+  static async getAll(req, res) {
+    const baseUrl = `${req.protocol}://${req.get('host')}${req.baseUrl}`;
+    const pages = { next: `${baseUrl}?page=2` };
+    let { page } = req.query;
+
+    const options = {
+      limit: 10
+    };
+
+    if (page >= 2) {
+      page = parseInt(page);
+      options.offset = (page - 1) * 10;
+      pages.next = `${baseUrl}?page=${page + 1}`;
+      pages.previous = `${baseUrl}?page=${page - 1}`;
+    }
+
+    let novedades;
+    try {
+      novedades = await New.findAll(options);
+    } catch (err) {
+      res.status(500).send({ msg: 'Internal Server error', error: err.message });
+    }
+
+    if (novedades.length < 10) {
+      delete pages.next;
+    }
+
+    if (novedades.length == 0) {
+      delete pages.previous;
+      pages.first = `${baseUrl}?page=1`;
+    }
+    res.status(200).send({ msg: 'Lista de novedades', pages, novedades: novedades });
+  }
+
   static async create(req, res) {
     const data = req.body;
     const { categoriesId } = data;
