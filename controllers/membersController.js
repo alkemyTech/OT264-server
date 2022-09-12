@@ -36,12 +36,16 @@ class MembersController {
   static async updateMember(req, res) {
     const id = req.params.id;
     const data = req.body;
-    const memberExist = await Member.findByPk(id);
-    await Member.update({ ...data }, { where: { id } });
-    if (memberExist) {
-      return res.send('Member updated successfully');
+    try {
+      const memberExist = await Member.findByPk(id);
+      if (memberExist) {
+        await Member.update({ ...data }, { where: { id } });
+        return res.send('Member updated successfully');
+      }
+      return res.send(new NotFound());
+    } catch (error) {
+      return res.status(500).json({ msg: 'Internal Server error' });
     }
-    return res.send(new NotFound());
   }
 }
 
