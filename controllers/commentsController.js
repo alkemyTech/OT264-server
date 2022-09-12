@@ -7,7 +7,7 @@ class CommentsController {
         attributes: ['body'],
         order: [['createdAt', 'ASC']]
       });
-      res.json(comments);
+      res.status(200).json(comments);
     } catch (error) {
       res.status(404).send('Ha ocurrido un error');
     }
