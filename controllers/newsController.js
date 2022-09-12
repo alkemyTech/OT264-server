@@ -1,39 +1,33 @@
 const { New, Categories } = require('../models');
 const { NotFound } = require('../utils/error');
+const ApiUtils = require('../utils/apiUtils');
 
 class NewsController {
   static async getAll(req, res) {
-    const baseUrl = `${req.protocol}://${req.get('host')}${req.baseUrl}`;
-    const pages = { next: `${baseUrl}?page=2` };
+    const baseUrl = await ApiUtils.getBaseUrl(req);
     let { page } = req.query;
 
-    const options = {
-      limit: 10
-    };
+    const options = {};
+    let pages = {};
 
-    if (page >= 2) {
-      page = parseInt(page);
+    if (page) {
+      page = parseInt(page, 10);
+      options.limit = 10;
       options.offset = (page - 1) * 10;
-      pages.next = `${baseUrl}?page=${page + 1}`;
-      pages.previous = `${baseUrl}?page=${page - 1}`;
     }
 
-    let novedades;
+    let news;
     try {
-      novedades = await New.findAll(options);
+      news = await New.findAndCountAll(options);
     } catch (err) {
       res.status(500).send({ msg: 'Internal Server error', error: err.message });
     }
 
-    if (novedades.length < 10) {
-      delete pages.next;
+    if (page) {
+      pages = await ApiUtils.getPagination(baseUrl, page, news.count);
     }
 
-    if (novedades.length == 0) {
-      delete pages.previous;
-      pages.first = `${baseUrl}?page=1`;
-    }
-    res.status(200).send({ msg: 'Lista de novedades', pages, novedades: novedades });
+    res.status(200).send({ msg: 'Lista de novedades', ...pages, news: news.rows });
   }
 
   static async create(req, res) {
