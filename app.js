@@ -4,6 +4,8 @@ const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const cors = require('cors');
+const swaggerUI = require('swagger-ui-express');
+const docs = require('./docs');
 require('dotenv').config();
 
 const indexRouter = require('./routes/index');
@@ -17,6 +19,7 @@ const testimonialRouter = require('./routes/testimonials');
 const membersRouter = require('./routes/members');
 const contactsRouter = require('./routes/contacts');
 const slidesRouter = require('./routes/slides');
+const backofficeRouter = require('./routes/backoffice');
 
 const app = express();
 app.use(cors());
@@ -31,6 +34,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+app.use('/docs', swaggerUI.serve, swaggerUI.setup(docs));
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/organization', organizationRouter);
@@ -42,6 +46,7 @@ app.use('/testimonials', testimonialRouter);
 app.use('/members', membersRouter);
 app.use('/contacts', contactsRouter);
 app.use('/slides', slidesRouter);
+app.use('/backoffice', backofficeRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
