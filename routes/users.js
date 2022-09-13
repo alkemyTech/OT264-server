@@ -7,7 +7,7 @@ const Validador = require('../middlewares/validator');
 const isUser = require('../middlewares/ownership');
 
 router.get('/', CheckRole.isAdmin, UserController.getAllUsers);
-router.delete('/:id', UserController.deleteUser);
+router.delete('/:id', CheckRole.isAdmin,UserController.deleteUser);
 
 router.patch(
   '/:id',
