@@ -2,10 +2,12 @@ const apiresponse = require('./apiresponse.schema');
 const error = require('./error.schema');
 const user = require('./user.schema');
 const address = require('./address.schema');
+const category = require('./categories.schema');
 
 module.exports = {
   components: {
     schemas: {
+      ...category,
       ...user,
       ...address,
       ...apiresponse
