@@ -1,6 +1,7 @@
 const { Member } = require('../models');
 const { NotFound } = require('../utils/error');
-
+const ApiUtils = require('../utils/apiUtils');
+const responseStatusHTTP = require('../utils/responseHTTP');
 class MembersController {
   static async create(req, res) {
     const { name, facebookUrl, instagramUrl, linkedinUrl, image, description } = req.body;
@@ -26,12 +27,31 @@ class MembersController {
     }
   }
   static async getAll(req, res) {
-    try {
-      const member = await Member.findAll();
-      res.status(200).json(member);
-    } catch (error) {
-      res.status(500).send({ msg: 'Internal Server error' });
+    const baseUrl = await ApiUtils.getBaseUrl(req);
+    let { page } = req.query;
+    const options = {};
+    let pages = {};
+
+    if (page) {
+      page = parseInt(page, 10);
+      options.limit = 10;
+      options.offset = (page - 1) * 10;
     }
+
+    let members;
+    try {
+      members = await Member.findAndCountAll(options);
+    } catch (err) {
+      return res
+        .status(responseStatusHTTP.Internal_Server_Error)
+        .send({ msg: 'Internal Server error', error: err.message });
+    }
+
+    if (page) {
+      pages = await ApiUtils.getPagination(baseUrl, page, members.count);
+    }
+
+    res.status(responseStatusHTTP.Ok).send({ msg: 'Lista de miembros', members: members.rows, ...pages });
   }
   static async updateMember(req, res) {
     const id = req.params.id;
