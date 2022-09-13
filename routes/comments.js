@@ -3,10 +3,10 @@ var router = express.Router();
 const { body } = require('express-validator');
 const CommentsController = require('../controllers/commentsController');
 const Validator = require('../middlewares/validator');
-const CheckRole = require('../middlewares/roleValidator');
+const RoleValidator = require('../middlewares/roleValidator');
 const isUser = require('../middlewares/ownership');
 
-router.get('/', CheckRole.isAdmin, CommentsController.getAll);
+router.get('/', RoleValidator.isAdmin, CommentsController.getAll);
 router.post(
   '/',
   body('body', 'body required').notEmpty(),

@@ -1,13 +1,13 @@
 var express = require('express');
 var router = express.Router();
 const UserController = require('../controllers/userController');
-const CheckRole = require('../middlewares/roleValidator');
+const RoleValidator = require('../middlewares/roleValidator');
 const { check } = require('express-validator');
 const Validador = require('../middlewares/validator');
 const isUser = require('../middlewares/ownership');
 
-router.get('/', CheckRole.isAdmin, UserController.getAllUsers);
-router.delete('/:id', CheckRole.isAdmin,UserController.deleteUser);
+router.get('/', RoleValidator.isAdmin, UserController.getAllUsers);
+router.delete('/:id', RoleValidator.isAdmin, UserController.deleteUser);
 
 router.patch(
   '/:id',

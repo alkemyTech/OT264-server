@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const { body } = require('express-validator');
 const Validator = require('../middlewares/validator');
-const IsRole = require('../middlewares/roleValidator');
+const RoleValidator = require('../middlewares/roleValidator');
 
 const ContactsController = require('../controllers/contactsController');
 
@@ -15,6 +15,6 @@ router.post(
   ContactsController.create
 );
 
-router.get('/', IsRole.isAdmin, ContactsController.getAll);
+router.get('/', RoleValidator.isAdmin, ContactsController.getAll);
 
 module.exports = router;

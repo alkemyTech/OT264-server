@@ -2,13 +2,13 @@ var express = require('express');
 var router = express.Router();
 const OrganizationController = require('../controllers/organizationController');
 const { check } = require('express-validator');
-const CheckRole = require('../middlewares/roleValidator');
+const RoleValidator = require('../middlewares/roleValidator');
 const Validador = require('../middlewares/validator');
 
 router.get('/public', OrganizationController.getAll);
 router.post(
   '/public',
-  CheckRole.isAdmin,
+  RoleValidator.isAdmin,
   check('name', 'ingresar un nombre valido').optional(),
   check('image', 'ingresar una imagen valida').optional(),
   check('address', 'ingresar una direccion valida').optional(),
