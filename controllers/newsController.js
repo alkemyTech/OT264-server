@@ -1,7 +1,35 @@
 const { New, Categories } = require('../models');
 const { NotFound } = require('../utils/error');
+const ApiUtils = require('../utils/apiUtils');
 
 class NewsController {
+  static async getAll(req, res) {
+    const baseUrl = await ApiUtils.getBaseUrl(req);
+    let { page } = req.query;
+
+    const options = {};
+    let pages = {};
+
+    if (page) {
+      page = parseInt(page, 10);
+      options.limit = 10;
+      options.offset = (page - 1) * 10;
+    }
+
+    let news;
+    try {
+      news = await New.findAndCountAll(options);
+    } catch (err) {
+      res.status(500).send({ msg: 'Internal Server error', error: err.message });
+    }
+
+    if (page) {
+      pages = await ApiUtils.getPagination(baseUrl, page, news.count);
+    }
+
+    res.status(200).send({ msg: 'Lista de novedades', ...pages, news: news.rows });
+  }
+
   static async create(req, res) {
     const data = req.body;
     const { categoriesId } = data;

@@ -6,6 +6,8 @@ const Validator = require('../middlewares/validator');
 const NewsController = require('../controllers/newsController');
 const RoleValidator = require('../middlewares/roleValidator');
 
+router.get('/', NewsController.getAll);
+
 router.post(
   '/',
   body('name', 'name required').notEmpty(),
