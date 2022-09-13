@@ -7,6 +7,7 @@ const RoleValidator = require('../middlewares/roleValidator');
 
 router.post(
   '/',
+  RoleValidator.isAdmin,
   body('name', 'name required').notEmpty(),
   body('facebookUrl', 'facebookUrl').notEmpty(),
   body('instagramUrl', 'instagramUrl required').notEmpty(),
@@ -17,6 +18,6 @@ router.post(
   MembersController.create
 );
 
-router.delete('/:id', MembersController.deleteMember);
+router.delete('/:id', RoleValidator.isAdmin,MembersController.deleteMember);
 router.get('/', RoleValidator.isAdmin, MembersController.getAll);
 module.exports = router;

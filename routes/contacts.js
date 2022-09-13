@@ -8,6 +8,7 @@ const ContactsController = require('../controllers/contactsController');
 
 router.post(
   '/',
+  RoleValidator.isAdmin,
   body('name', 'name required').notEmpty(),
   body('email', 'email required').notEmpty(),
   Validator.validateField,
