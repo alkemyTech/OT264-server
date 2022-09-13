@@ -4,7 +4,7 @@ class ApiUtils {
   }
   static async getPagination(baseUrl, page, total) {
     const nextPage = total / 10 > page ? `${baseUrl}?page=${page + 1}` : null;
-    const previousPage = page < 1 ? null : `${baseUrl}?page=${page - 1}`;
+    const previousPage = page < 2 ? null : `${baseUrl}?page=${page - 1}`;
     const pages = { nextPage, currentPage: page, previousPage };
 
     return pages;

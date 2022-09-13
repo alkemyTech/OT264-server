@@ -15,4 +15,6 @@ router.post(
 );
 router.put('/:id', RoleValidator.isAdmin, TestimonialController.updateTestimonial);
 router.delete('/:id', RoleValidator.isAdmin, TestimonialController.deleteTestimonial);
+router.get('/', TestimonialController.getAll);
+
 module.exports = router;
