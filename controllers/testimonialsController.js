@@ -1,5 +1,6 @@
 const { Testimonial } = require('../models');
 const { NotFound } = require('../utils/error');
+const ApiUtils = require('../utils/apiUtils')
 
 class TestimonialController {
   static async updateTestimonial(req, res) {
@@ -29,6 +30,33 @@ class TestimonialController {
     }
     return res.send(new NotFound());
   }
+  static async getAll(req, res) {
+    const baseUrl = await ApiUtils.getBaseUrl(req);
+    let { page } = req.query;
+
+    const options = {};
+    let pages = {};
+
+    if (page) {
+      page = parseInt(page, 10);
+      options.limit = 10;
+      options.offset = (page - 1) * 10;
+    }
+
+    let testimonials;
+    try {
+      testimonials = await Testimonial.findAndCountAll(options);
+    } catch (err) {
+      res.status(500).send({ msg: 'Internal Server error', error: err.message });
+    }
+
+    if (page) {
+      pages = await ApiUtils.getPagination(baseUrl, page, testimonials.count);
+    }
+
+    res.status(200).send({ msg: 'Lista de testimonios', ...pages, testimonials: testimonials.rows });
+  }
+
 }
 
 module.exports = TestimonialController;
