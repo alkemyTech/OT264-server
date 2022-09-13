@@ -1,6 +1,7 @@
-const { New, Categories } = require('../models');
+const { New, Categories, Comment } = require('../models');
 const { NotFound } = require('../utils/error');
 const ApiUtils = require('../utils/apiUtils');
+const responseHTTP = require('../utils/responseHTTP')
 
 class NewsController {
   static async getAll(req, res) {
@@ -82,6 +83,32 @@ class NewsController {
     } catch (error) {
       return res.status(500).json({ msg: 'Internal Server error' });
     }
+  }
+
+  static async getComments(req, res) {
+    const { id } = req.params;
+    const options = {
+      where: { id },
+      attributes: [],
+      include: {
+        model: Comment,
+        as: 'comments',
+        attributes: ['id', 'userId', 'body']
+      }
+    };
+    let comments;
+    try {
+      comments = await New.findAll(options);
+    } catch (err) {
+      return res.status(responseHTTP.Internal_Server_Error).send({ msg: 'Internal Server error', error: err.message });
+    }
+    if (comments[0]) {
+      comments = comments[0].dataValues.comments;
+    } else {
+      comments = [];
+    }
+
+    return res.status(responseHTTP.Ok).send({ msg: 'Lista de commentarios de novedades', comments });
   }
 }
 module.exports = NewsController;

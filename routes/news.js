@@ -34,4 +34,6 @@ router.put(
   NewsController.updateNews
 );
 
+router.get('/:id/comments', NewsController.getComments);
+
 module.exports = router;
