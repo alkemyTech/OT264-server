@@ -6,9 +6,15 @@ module.exports = (sequelize, DataTypes) => {
   }
   Comment.init(
     {
-      user_Id: DataTypes.INTEGER,
+      userId: {
+        field: 'user_id',
+        type: DataTypes.INTEGER
+      },
       body: DataTypes.TEXT,
-      new_id: DataTypes.INTEGER
+      newId: {
+        field: 'new_id',
+        type: DataTypes.INTEGER
+      }
     },
     {
       sequelize,

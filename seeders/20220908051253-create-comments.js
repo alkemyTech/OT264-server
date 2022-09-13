@@ -6,147 +6,147 @@ module.exports = {
       'Comments',
       [
         {
-          user_Id: 1,
+          user_id: 1,
           body: 'Esto es un texto demasiado largo',
           new_id: 1,
           createdAt: new Date(),
           updatedAt: new Date()
         },
         {
-          user_Id: 2,
+          user_id: 2,
           body: 'Esto es un texto demasiado largo',
           new_id: 1,
           createdAt: new Date(),
           updatedAt: new Date()
         },
         {
-          user_Id: 3,
+          user_id: 3,
           body: 'Esto es un texto demasiado largo',
           new_id: 1,
           createdAt: new Date(),
           updatedAt: new Date()
         },
         {
-          user_Id: 4,
+          user_id: 4,
           body: 'Esto es un texto demasiado largo',
           new_id: 1,
           createdAt: new Date(),
           updatedAt: new Date()
         },
         {
-          user_Id: 5,
+          user_id: 5,
           body: 'Esto es un texto demasiado largo',
           new_id: 1,
           createdAt: new Date(),
           updatedAt: new Date()
         },
         {
-          user_Id: 6,
+          user_id: 6,
           body: 'Esto es un texto demasiado largo',
           new_id: 1,
           createdAt: new Date(),
           updatedAt: new Date()
         },
         {
-          user_Id: 7,
+          user_id: 7,
           body: 'Esto es un texto demasiado largo',
           new_id: 1,
           createdAt: new Date(),
           updatedAt: new Date()
         },
         {
-          user_Id: 8,
+          user_id: 8,
           body: 'Esto es un texto demasiado largo',
           new_id: 1,
           createdAt: new Date(),
           updatedAt: new Date()
         },
         {
-          user_Id: 9,
+          user_id: 9,
           body: 'Esto es un texto demasiado largo',
           new_id: 1,
           createdAt: new Date(),
           updatedAt: new Date()
         },
         {
-          user_Id: 10,
+          user_id: 10,
           body: 'Esto es un texto demasiado largo',
           new_id: 1,
           createdAt: new Date(),
           updatedAt: new Date()
         },
         {
-          user_Id: 11,
+          user_id: 11,
           body: 'Esto es un texto demasiado largo',
           new_id: 1,
           createdAt: new Date(),
           updatedAt: new Date()
         },
         {
-          user_Id: 12,
+          user_id: 12,
           body: 'Esto es un texto demasiado largo',
           new_id: 1,
           createdAt: new Date(),
           updatedAt: new Date()
         },
         {
-          user_Id: 13,
+          user_id: 13,
           body: 'Esto es un texto demasiado largo',
           new_id: 1,
           createdAt: new Date(),
           updatedAt: new Date()
         },
         {
-          user_Id: 14,
+          user_id: 14,
           body: 'Esto es un texto demasiado largo',
           new_id: 1,
           createdAt: new Date(),
           updatedAt: new Date()
         },
         {
-          user_Id: 15,
+          user_id: 15,
           body: 'Esto es un texto demasiado largo',
           new_id: 1,
           createdAt: new Date(),
           updatedAt: new Date()
         },
         {
-          user_Id: 16,
+          user_id: 16,
           body: 'Esto es un texto demasiado largo',
           new_id: 1,
           createdAt: new Date(),
           updatedAt: new Date()
         },
         {
-          user_Id: 17,
+          user_id: 17,
           body: 'Esto es un texto demasiado largo',
           new_id: 1,
           createdAt: new Date(),
           updatedAt: new Date()
         },
         {
-          user_Id: 18,
+          user_id: 18,
           body: 'Esto es un texto demasiado largo',
           new_id: 1,
           createdAt: new Date(),
           updatedAt: new Date()
         },
         {
-          user_Id: 19,
+          user_id: 19,
           body: 'Esto es un texto demasiado largo',
           new_id: 1,
           createdAt: new Date(),
           updatedAt: new Date()
         },
         {
-          user_Id: 20,
+          user_id: 20,
           body: 'Esto es un texto demasiado largo',
           new_id: 1,
           createdAt: new Date(),
           updatedAt: new Date()
         },
         {
-          user_Id: 21,
+          user_id: 21,
           body: 'Esto es un texto demasiado largo',
           new_id: 1,
           createdAt: new Date(),
