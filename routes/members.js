@@ -18,7 +18,7 @@ router.post(
   MembersController.create
 );
 
-router.delete('/:id', RoleValidator.isAdmin,MembersController.deleteMember);
+router.delete('/:id', RoleValidator.isAdmin, MembersController.deleteMember);
 router.get('/', RoleValidator.isAdmin, MembersController.getAll);
 router.put(
   '/:id',
