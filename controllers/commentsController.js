@@ -12,6 +12,18 @@ class CommentsController {
       res.status(404).send('Ha ocurrido un error');
     }
   }
+  static async create(req, res) {
+    const { userId, body, newId } = req.body;
+    const data = { userId, body, newId };
+    let newComment;
+    try {
+      newComment = await Comment.create(data);
+    } catch (err) {
+      return res.status(500).send({ msg: 'Internal Server error' });
+    }
+    res.status(200).send(newComment);
+  }
+
   static async deleteComment(req, res) {
     const { id } = req.params;
     var deleteComment = {};
