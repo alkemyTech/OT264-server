@@ -28,3 +28,19 @@ npx sequelize-cli db:seed:all
 ```bash
 npm start
 ```
+
+## Users for testing
+
+The database has 10 administrator users and 10 non-administrators.
+
+### _Admin:_
+
+- _Email_: isAdmin\_`X`@test.com
+- _Password_: userAdmin\_`X`
+
+### _No Admin:_
+
+- _Email_: noAdmin\_`X`@test.com
+- _Password_: noAdmin\_`X`
+
+Note: replace `X` with a number from 1 to 10.

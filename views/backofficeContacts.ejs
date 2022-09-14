@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title><%= title %></title>
+
+   <style>
+      table {
+        margin: 0 auto;
+      }
+      table {
+        color: #333;
+        border: 1px solid grey;
+        font-size: 12pt;
+        border-collapse: collapse;
+      }
+
+      table tfoot th {
+        color: rgb(79, 78, 78);
+        background: rgba(0,0,0,.1);
+      }
+      table caption {
+        padding:.5em;
+      }
+      table th,
+      table td {
+        padding: .5em;
+        border: 1px solid lightgrey;
+      }
+    </style>
+  </head>
+  <body>
+    <% if (contacts.length > 0) { %>
+      <table>
+        <thead>
+          <tr>
+            <% Object.keys(contacts[0]).forEach(key => { %>
+              <th><%= key %></th>
+            <% }); %>
+          </tr>
+        </thead>
+        <tbody>
+          <% contacts.forEach(contact => { %>
+            <tr>
+              <% Object.values(contact).forEach(value => { %>
+                <td><%= value %></td>
+              <% }); %>
+            </tr>
+          <% }); %>
+        </tbody>
+      </table>
+    <%} else { %>
+      <p>Contacts No Found.</p>
+    <%} %>
+  </body>
+</html>
