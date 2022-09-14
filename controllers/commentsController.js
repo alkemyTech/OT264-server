@@ -38,6 +38,21 @@ class CommentsController {
       return res.status(responseStatusHTTP.Not_Found).json({ msg: 'The comment is not found in the database' });
     }
   }
+  static async updateComment(req, res) {
+    const { id } = req.params;
+    const data = req.body;
+    let comment;
+    try {
+      comment = await Comment.update({ ...data }, { where: { id } });
+    } catch (error) {
+      res.status(responseStatusHTTP.Internal_Server_Error).json({ msg: 'Internal Server error' });
+    }
+    if (comment) {
+      return res.status(responseStatusHTTP.Ok).send({ msg: 'The comment updated successfully' });
+    } else {
+      return res.status(responseStatusHTTP.Not_Found).json({ msg: 'The comment is not found in the database' });
+    }
+  }
 }
 
 module.exports = CommentsController;
