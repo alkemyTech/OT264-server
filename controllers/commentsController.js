@@ -47,7 +47,7 @@ class CommentsController {
     } catch (error) {
       res.status(responseStatusHTTP.Internal_Server_Error).json({ msg: 'Internal Server error' });
     }
-    if (comment[0]) {
+    if (comment) {
       return res.status(responseStatusHTTP.Ok).send({ msg: 'The comment updated successfully' });
     } else {
       return res.status(responseStatusHTTP.Not_Found).json({ msg: 'The comment is not found in the database' });

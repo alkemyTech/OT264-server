@@ -16,6 +16,6 @@ router.post(
   CommentsController.create
 );
 router.delete('/:id', isUser.isUser, CommentsController.deleteComment);
-//router.put('/:id', isUser.isUser, CommentsController.updateComment);
-router.put('/:id', CommentsController.updateComment);
+router.put('/:id', isUser.isUser, CommentsController.updateComment);
+
 module.exports = router;
