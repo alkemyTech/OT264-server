@@ -1,8 +1,8 @@
 const base = {
   get: {
-    tags: ['Categories'],
-    description: 'Listar categorias',
-    operationId: 'getCategories',
+    tags: ['Testimonials'],
+    description: 'Listar testimonios',
+    operationId: 'getTestimonials',
     parameters: [
       {
         in: 'query',
@@ -13,7 +13,6 @@ const base = {
         name: 'offset'
       }
     ],
-    security: [{ bearerAuth: [] }],
     responses: {
       200: {
         description: 'OK',
@@ -35,16 +34,16 @@ const base = {
   },
   // Request de tipo post y protección con bearear
   post: {
-    tags: ['Categories'],
-    description: 'Crear Categoria',
-    operationId: 'postCategory',
+    tags: ['Testimonials'],
+    description: 'Crear Testimonio',
+    operationId: 'postTestimonial',
     parameters: [],
     security: [{ bearerAuth: [] }],
     requestBody: {
       content: {
         'application/json': {
           schema: {
-            $ref: '#/components/schemas/Categories'
+            $ref: '#/components/schemas/Testimonial'
           }
         }
       }
@@ -71,55 +70,19 @@ const base = {
 };
 
 const byId = {
-  get: {
-    tags: ['Categories'],
-    description: 'Detalles de categoria',
-    operationId: 'getCategory',
-    parameters: [
-      {
-        in: 'path',
-        name: 'categoriesId',
-        schema: {
-          type: 'integer'
-        },
-        required: true,
-        description: 'Id de la categoria'
-      }
-    ],
-    security: [{ bearerAuth: [] }],
-    responses: {
-      200: {
-        description: 'OK',
-        content: {
-          'aplication/json': {
-            schema: {
-              $ref: '#/components/schemas/ApiResponse'
-            }
-          }
-        }
-      },
-      400: {
-        $ref: '#components/responses/NotFound'
-      },
-      401: {
-        $ref: '#components/responses/Unauthorized'
-      }
-    }
-  },
-
   put: {
-    tags: ['Categories'],
-    description: 'Editar categoria',
-    operationId: 'putCategory',
+    tags: ['Testimonials'],
+    description: 'Editar testimonio',
+    operationId: 'putTestimonial',
     parameters: [
       {
         in: 'path',
-        name: 'categoryId',
+        name: 'testimonialId',
         schema: {
           type: 'integer'
         },
         required: true,
-        description: 'Id de la categoria'
+        description: 'Id del testimonio'
       }
     ],
     security: [{ bearerAuth: [] }],
@@ -144,18 +107,18 @@ const byId = {
   },
 
   delete: {
-    tags: ['Categories'],
-    description: 'Eliminar categoria',
-    operationId: 'delCategory',
+    tags: ['Testimonials'],
+    description: 'Eliminar testimonio',
+    operationId: 'delTestimonial',
     parameters: [
       {
         in: 'path',
-        name: 'categoryId',
+        name: 'testimonialId',
         schema: {
           type: 'integer'
         },
         required: true,
-        description: 'Id de la categoria'
+        description: 'Id del testimonio'
       }
     ],
     security: [{ bearerAuth: [] }],

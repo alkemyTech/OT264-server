@@ -5,6 +5,9 @@ module.exports = {
     },
     {
       name: 'Categories'
+    },
+    {
+      name: 'Testimonials'
     }
   ]
 };
