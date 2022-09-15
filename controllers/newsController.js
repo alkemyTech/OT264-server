@@ -1,7 +1,7 @@
 const { New, Categories, Comment } = require('../models');
 const { NotFound } = require('../utils/error');
 const ApiUtils = require('../utils/apiUtils');
-const responseHTTP = require('../utils/responseHTTP')
+const responseHTTP = require('../utils/responseHTTP');
 
 class NewsController {
   static async getAll(req, res) {
