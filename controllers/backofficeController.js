@@ -1,14 +1,16 @@
 const { Contacts } = require('../models');
-const { NotFound } = require('../utils/error');
+const responseStatusHTTP = require('../utils/responseHTTP');
 
 class BackofficeController {
   static async getContacts(req, res) {
     try {
-      const contacts = await Contacts.findAll();
+      const contacts = await Contacts.findAll({
+        attributes: ['name', 'phone', 'email', 'message']
+      });
       const parseContacts = JSON.parse(JSON.stringify(contacts));
       res.render('backofficeContacts', { title: 'Contacts', contacts: parseContacts });
     } catch (err) {
-      return NotFound;
+      res.status(responseStatusHTTP.Internal_Server_Error).json({ msg: 'Internal Server error' });
     }
   }
 }
