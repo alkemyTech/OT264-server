@@ -2,6 +2,7 @@ const { Slide } = require('../models');
 const uploadImages = require('../utils/uploadImageS3');
 const decodeBase64 = require('../utils/decodeBase64');
 const responseStatusHTTP = require('../utils/responseHTTP');
+const fs = require('fs');
 
 class SlidesController {
   static async updateSlides(req, res) {
@@ -61,6 +62,7 @@ class SlidesController {
     }
     const { pathImage, nameFile } = data;
     const urlLocation = await uploadImages(pathImage);
+    fs.unlinkSync(pathImage);
     if (!order) {
       const lastOrder = await Slide.findOne({ order: [['order', 'DESC']] });
       const { order } = lastOrder;
