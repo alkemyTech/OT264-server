@@ -3,10 +3,12 @@ const error = require('./error.schema');
 const user = require('./user.schema');
 const address = require('./address.schema');
 const category = require('./categories.schema');
+const testimonial = require('./testimonials.schema');
 
 module.exports = {
   components: {
     schemas: {
+      ...testimonial,
       ...category,
       ...user,
       ...address,
