@@ -1,6 +1,6 @@
 const { Testimonial } = require('../models');
 const { NotFound } = require('../utils/error');
-const ApiUtils = require('../utils/apiUtils')
+const ApiUtils = require('../utils/apiUtils');
 
 class TestimonialController {
   static async updateTestimonial(req, res) {
@@ -56,7 +56,6 @@ class TestimonialController {
 
     res.status(200).send({ msg: 'Lista de testimonios', ...pages, testimonials: testimonials.rows });
   }
-
 }
 
 module.exports = TestimonialController;
