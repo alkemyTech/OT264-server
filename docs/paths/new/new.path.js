@@ -1,40 +1,6 @@
 const base = {
-  get: {
-    tags: ['News'],
-    description: 'Listar Novedades',
-    operationId: 'getNews',
-    parameters: [
-      {
-        in: 'query',
-        name: 'limit'
-      },
-      {
-        in: 'query',
-        name: 'offset'
-      }
-    ],
-    security: [{ bearerAuth: [] }],
-    responses: {
-      200: {
-        description: 'OK',
-        content: {
-          'aplication/json': {
-            schema: {
-              $ref: '#/components/schemas/ApiResponse'
-            }
-          }
-        }
-      },
-      400: {
-        $ref: '#components/responses/NotFound'
-      },
-      401: {
-        $ref: '#components/responses/Unauthorized'
-      }
-    }
-  },
-  // Request de tipo post y protección con bearear
   post: {
+    summary: 'Create new',
     tags: ['News'],
     description: 'Crear New',
     operationId: 'postNew',
@@ -67,11 +33,47 @@ const base = {
         $ref: '#components/responses/Unauthorized'
       }
     }
+  },
+  get: {
+    summary: 'Get all news',
+    tags: ['News'],
+    description: 'Listar Novedades',
+    operationId: 'getNews',
+    parameters: [
+      {
+        in: 'query',
+        name: 'limit'
+      },
+      {
+        in: 'query',
+        name: 'offset'
+      }
+    ],
+    security: [{ bearerAuth: [] }],
+    responses: {
+      200: {
+        description: 'OK',
+        content: {
+          'aplication/json': {
+            schema: {
+              $ref: '#/components/schemas/ApiResponse'
+            }
+          }
+        }
+      },
+      400: {
+        $ref: '#components/responses/NotFound'
+      },
+      401: {
+        $ref: '#components/responses/Unauthorized'
+      }
+    }
   }
 };
 
 const byId = {
   get: {
+    summary: 'Get id new',
     tags: ['News'],
     description: 'Detalles de novedades',
     operationId: 'getNew',
@@ -108,6 +110,7 @@ const byId = {
   },
 
   put: {
+    summary: 'Update new',
     tags: ['News'],
     description: 'Editar novedaad',
     operationId: 'putNew',
@@ -123,6 +126,15 @@ const byId = {
       }
     ],
     security: [{ bearerAuth: [] }],
+    requestBody: {
+      content: {
+        'application/json': {
+          schema: {
+            $ref: '#/components/schemas/New'
+          }
+        }
+      }
+    },
     responses: {
       200: {
         description: 'OK',
@@ -144,6 +156,7 @@ const byId = {
   },
 
   delete: {
+    summary: 'Delete new',
     tags: ['News'],
     description: 'Eliminar novedaad',
     operationId: 'delNew',

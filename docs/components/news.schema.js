@@ -2,11 +2,6 @@ module.exports = {
   New: {
     type: 'object',
     properties: {
-      id: {
-        type: 'integer',
-        format: 'int64',
-        example: 10
-      },
       name: {
         type: 'string',
         example: 'New 1'
@@ -22,7 +17,7 @@ module.exports = {
       categoriesId: {
         type: 'integer',
         format: 'int64',
-        example: 10
+        example: 2
       },
       comment: {
         type: 'string',
