@@ -8,6 +8,9 @@ module.exports = {
     },
     {
       name: 'Testimonials'
+    },
+    {
+      name: 'News'
     }
   ]
 };

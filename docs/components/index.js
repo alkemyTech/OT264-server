@@ -4,10 +4,12 @@ const user = require('./user.schema');
 const address = require('./address.schema');
 const category = require('./categories.schema');
 const testimonial = require('./testimonials.schema');
+const news = require('./news.schema');
 
 module.exports = {
   components: {
     schemas: {
+      ...news,
       ...testimonial,
       ...category,
       ...user,
