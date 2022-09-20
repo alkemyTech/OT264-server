@@ -4,7 +4,7 @@ module.exports = {
   '/members': {
     ...memberPath.base
   },
-  '/members/{memberlId}': {
+  '/members/{memberId}': {
     ...memberPath.byId
   }
 };
