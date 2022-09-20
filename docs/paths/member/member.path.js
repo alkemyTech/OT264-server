@@ -46,7 +46,7 @@ const base = {
       },
       {
         in: 'query',
-        name: 'offset'
+        name: 'page'
       }
     ],
     security: [{ bearerAuth: [] }],
