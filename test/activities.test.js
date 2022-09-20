@@ -1,6 +1,11 @@
 const { request, chai } = require('./common.test');
 const sinon = require('sinon');
-const RoleValidator = require('./../middlewares/roleValidator');
+
+const JwtUtils = require('../utils/jwtUtils');
+const UserController = require('../controllers/userController');
+const { Activities } = require('../models');
+
+const expect = chai.expect;
 
 describe('# Activities test', () => {
   const baseUrl = '/activities';
@@ -11,25 +16,36 @@ describe('# Activities test', () => {
     image: 'new activity image'
   };
 
-  before(async () => {
-    sinon.stub(RoleValidator, 'isAdmin').returns(() => {
-      return true;
-    });
+  const sandbox = sinon.createSandbox();
+
+  before(() => {
   });
 
   after(() => {
-    RoleValidator.isAdmin.restore();
+    sinon.restore();
+    sandbox.restore();
   });
 
-  it('should save the activity', () => {
-    console.log('Activities test');
-    return request
-      .post(baseUrl)
-      .send(newActivity)
-      .expect(200)
-      .expect((res) => {
-        console.log('1234564');
-        res.body.should.equal(newActivity);
+  it('should save the activity', async () => {
+
+    sandbox.stub(JwtUtils, 'verifyToken')
+      .resolves({
+        email: 'anEmailValidated@test.com'
       });
+    sandbox.stub(UserController, 'getByEmail')
+      .resolves({
+        roleId: 1
+      });
+    sandbox.stub(Activities, 'create')
+      .resolves(newActivity);
+
+    const response = await request
+                        .post(baseUrl)
+                        .send(newActivity)
+
+    const activity = response.body;
+    expect(activity).to.be.a('object');
+    expect(response.status).to.be.equal(200);
+    expect(activity).to.be.deep.equal(newActivity);
   });
 });

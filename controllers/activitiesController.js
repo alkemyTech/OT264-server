@@ -4,11 +4,10 @@ class ActivitiesController {
   static async create(req, res) {
     const data = req.body;
     try {
-      const newActivitie = await Activities.create(data);
-      res.status(200).send(newActivitie);
+      const newActivity = await Activities.create(data);
+      return res.status(200).json(newActivity);
     } catch (e) {
-      console.log(e);
-      res.status(500).json({ msg: 'Internal Server error' });
+      return res.status(500).json({ msg: 'Internal Server error' });
     }
   }
   static async updateActivities(req, res) {

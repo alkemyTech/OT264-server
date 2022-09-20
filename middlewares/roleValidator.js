@@ -4,7 +4,6 @@ const UserController = require('../controllers/userController');
 class RoleValidator {
   static async isAdmin(req, res, next) {
     //Extract email from token and get user data
-    console.log('Role original');
     let user;
     try {
       const payloadToken = JwtUtils.verifyToken(req);
@@ -17,7 +16,6 @@ class RoleValidator {
     if (roleId !== 1) {
       return res.status(401).send({ msg: 'Unauthorized' });
     }
-
     next();
   }
 }
