@@ -2,11 +2,6 @@ module.exports = {
   Member: {
     type: 'object',
     properties: {
-      id: {
-        type: 'integer',
-        format: 'int64',
-        example: 10
-      },
       name: {
         type: 'string',
         example: 'Marita Gomez'

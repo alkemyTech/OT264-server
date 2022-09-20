@@ -10,7 +10,7 @@ const base = {
       content: {
         'application/json': {
           schema: {
-            $ref: '#/components/schemas/Members'
+            $ref: '#/components/schemas/Member'
           }
         }
       }
@@ -46,7 +46,7 @@ const base = {
       },
       {
         in: 'query',
-        name: 'offset'
+        name: 'page'
       }
     ],
     security: [{ bearerAuth: [] }],
@@ -88,6 +88,15 @@ const byId = {
       }
     ],
     security: [{ bearerAuth: [] }],
+    requestBody: {
+      content: {
+        'application/json': {
+          schema: {
+            $ref: '#/components/schemas/Member'
+          }
+        }
+      }
+    },
     responses: {
       200: {
         description: 'OK',
