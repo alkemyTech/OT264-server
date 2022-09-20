@@ -1,6 +1,9 @@
 module.exports = {
   tags: [
     {
+      name: 'Auth'
+    },
+    {
       name: 'User' // name of a tag
     },
     {

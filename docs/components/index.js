@@ -6,10 +6,12 @@ const category = require('./categories.schema');
 const testimonial = require('./testimonials.schema');
 const news = require('./news.schema');
 const member = require('./mebers.schema');
+const auth = require('./auth.schema');
 
 module.exports = {
   components: {
     schemas: {
+      ...auth,
       ...member,
       ...news,
       ...testimonial,
