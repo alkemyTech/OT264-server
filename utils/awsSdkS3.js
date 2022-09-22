@@ -49,7 +49,7 @@ class AwsSdkS3 {
   }
 
   static async uploadLocalObject(filePath) {
-    var uploadParams = { Bucket: bucketName, Key: '', Body: '' };
+    var uploadParams = { Bucket: bucketName, Key: '', Body: '', ACL: 'public-read' };
     var file = filePath;
 
     // Configure the file stream and obtain the upload parameters
