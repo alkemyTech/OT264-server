@@ -10,7 +10,7 @@ const baseUrl = '/organization/public';
 
 describe('Organization test', () => {
   const sandbox = sinon.createSandbox();
-  before(() => {
+  beforeEach(() => {
     sandbox.stub(JwtUtils, 'verifyToken').resolves({
       email: 'anEmailValidated@test.com'
     });
@@ -18,13 +18,13 @@ describe('Organization test', () => {
       roleId: 1
     });
   });
-  after(() => {
+  afterEach(() => {
     sinon.restore();
     sandbox.restore();
   });
   const organization = {
     id: 1,
-    name: 'ONG',
+    name: 'ONG - Modelo',
     image: 'this is image',
     addres: 'this is address',
     phone: 123456,
@@ -93,7 +93,6 @@ describe('Organization test', () => {
       expect(response.body[0][0]).to.have.property('urlFacebook');
       expect(response.body[0][0]).to.have.property('urlInstagram');
       expect(response.body[0][0]).to.have.property('UrlLinkedin');
-      console.log(response.body[0].length);
       expect(response.body[0].length).to.be.equal(3);
     });
   });
@@ -109,12 +108,21 @@ describe('Organization test', () => {
         welcomeText: 'this is welcome text - Update',
         aboutUsText: 'this is about us text - Update',
         urlFacebook: 'Facebook Organization',
-        urlInstagram: 'Instrgram Organization',
-        UrlLinkedin: 12132121
+        urlInstagram: 'Instagram Organization',
+        UrlLinkedin: 'LinkedIn Organization'
       };
       sandbox.stub(Organization, 'update').resolves(organization);
-      const response = await request.post(baseUrl).send(updatedOrganization);
-      expect(response.status).to.be.equal(200);
+      const responsePost = await request.post(baseUrl).send(updatedOrganization);
+      expect(responsePost.status).to.be.equal(200);
+      sandbox.stub(Organization, 'findAll').resolves(updatedOrganization);
+      const responseUpdated = await request.get(baseUrl);
+      expect(responseUpdated.body[0].name).to.be.deep.equal(updatedOrganization.name);
+      expect(responseUpdated.body[0].image).to.be.deep.equal(updatedOrganization.image);
+      expect(responseUpdated.body[0].addres).to.be.deep.equal(updatedOrganization.addres);
+      expect(responseUpdated.body[0].phone).to.be.deep.equal(updatedOrganization.phone);
+      expect(responseUpdated.body[0].email).to.be.deep.equal(updatedOrganization.email);
+      expect(responseUpdated.body[0].welcomeText).to.be.deep.equal(updatedOrganization.welcomeText);
+      expect(responseUpdated.body[0].aboutUsText).to.be.deep.equal(updatedOrganization.aboutUsText);
     });
   });
 });
