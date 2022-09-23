@@ -1,8 +1,44 @@
 const base = {
+  post: {
+    summary: 'Create new',
+    tags: ['News'],
+    description: 'Crear New',
+    operationId: 'postNew',
+    parameters: [],
+    security: [{ bearerAuth: [] }],
+    requestBody: {
+      content: {
+        'application/json': {
+          schema: {
+            $ref: '#/components/schemas/New'
+          }
+        }
+      }
+    },
+    responses: {
+      200: {
+        description: 'OK',
+        content: {
+          'aplication/json': {
+            schema: {
+              $ref: '#/components/schemas/ApiResponse'
+            }
+          }
+        }
+      },
+      400: {
+        $ref: '#components/responses/NotFound'
+      },
+      401: {
+        $ref: '#components/responses/Unauthorized'
+      }
+    }
+  },
   get: {
-    tags: ['Categories'],
-    description: 'Listar categorias',
-    operationId: 'getCategories',
+    summary: 'Get all news',
+    tags: ['News'],
+    description: 'Listar Novedades',
+    operationId: 'getNews',
     parameters: [
       {
         in: 'query',
@@ -32,58 +68,24 @@ const base = {
         $ref: '#components/responses/Unauthorized'
       }
     }
-  },
-  // Request de tipo post y protección con bearear
-  post: {
-    tags: ['Categories'],
-    description: 'Crear Categoria',
-    operationId: 'postCategory',
-    parameters: [],
-    security: [{ bearerAuth: [] }],
-    requestBody: {
-      content: {
-        'application/json': {
-          schema: {
-            $ref: '#/components/schemas/Categories'
-          }
-        }
-      }
-    },
-    responses: {
-      200: {
-        description: 'OK',
-        content: {
-          'aplication/json': {
-            schema: {
-              $ref: '#/components/schemas/ApiResponse'
-            }
-          }
-        }
-      },
-      400: {
-        $ref: '#components/responses/NotFound'
-      },
-      401: {
-        $ref: '#components/responses/Unauthorized'
-      }
-    }
   }
 };
 
 const byId = {
   get: {
-    tags: ['Categories'],
-    description: 'Detalles de categoria',
-    operationId: 'getCategory',
+    summary: 'Get id new',
+    tags: ['News'],
+    description: 'Detalles de novedades',
+    operationId: 'getNew',
     parameters: [
       {
         in: 'path',
-        name: 'categoriesId',
+        name: 'newId',
         schema: {
           type: 'integer'
         },
         required: true,
-        description: 'Id de la categoria'
+        description: 'Id de la novedad'
       }
     ],
     security: [{ bearerAuth: [] }],
@@ -108,21 +110,31 @@ const byId = {
   },
 
   put: {
-    tags: ['Categories'],
-    description: 'Editar categoria',
-    operationId: 'putCategory',
+    summary: 'Update new',
+    tags: ['News'],
+    description: 'Editar novedaad',
+    operationId: 'putNew',
     parameters: [
       {
         in: 'path',
-        name: 'categoryId',
+        name: 'newId',
         schema: {
           type: 'integer'
         },
         required: true,
-        description: 'Id de la categoria'
+        description: 'Id de la novedad'
       }
     ],
     security: [{ bearerAuth: [] }],
+    requestBody: {
+      content: {
+        'application/json': {
+          schema: {
+            $ref: '#/components/schemas/New'
+          }
+        }
+      }
+    },
     responses: {
       200: {
         description: 'OK',
@@ -144,18 +156,56 @@ const byId = {
   },
 
   delete: {
-    tags: ['Categories'],
-    description: 'Eliminar categoria',
-    operationId: 'delCategory',
+    summary: 'Delete new',
+    tags: ['News'],
+    description: 'Eliminar novedaad',
+    operationId: 'delNew',
     parameters: [
       {
         in: 'path',
-        name: 'categoryId',
+        name: 'newId',
         schema: {
           type: 'integer'
         },
         required: true,
-        description: 'Id de la categoria'
+        description: 'Id de la novedaad'
+      }
+    ],
+    security: [{ bearerAuth: [] }],
+    responses: {
+      200: {
+        description: 'OK',
+        content: {
+          'aplication/json': {
+            schema: {
+              $ref: '#/components/schemas/ApiResponse'
+            }
+          }
+        }
+      },
+      400: {
+        $ref: '#components/responses/NotFound'
+      },
+      401: {
+        $ref: '#components/responses/Unauthorized'
+      }
+    }
+  }
+};
+const idComments = {
+  get: {
+    tags: ['News'],
+    description: 'Comentarios por Id',
+    operationId: 'getComment',
+    parameters: [
+      {
+        in: 'path',
+        name: 'id',
+        schema: {
+          type: 'integer'
+        },
+        required: true,
+        description: 'todos loos comentarios de la novedad'
       }
     ],
     security: [{ bearerAuth: [] }],
@@ -182,5 +232,6 @@ const byId = {
 
 module.exports = {
   base,
-  byId
+  byId,
+  idComments
 };

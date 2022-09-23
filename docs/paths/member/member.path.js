@@ -1,50 +1,16 @@
 const base = {
-  get: {
-    tags: ['Categories'],
-    description: 'Listar categorias',
-    operationId: 'getCategories',
-    parameters: [
-      {
-        in: 'query',
-        name: 'limit'
-      },
-      {
-        in: 'query',
-        name: 'offset'
-      }
-    ],
-    security: [{ bearerAuth: [] }],
-    responses: {
-      200: {
-        description: 'OK',
-        content: {
-          'aplication/json': {
-            schema: {
-              $ref: '#/components/schemas/ApiResponse'
-            }
-          }
-        }
-      },
-      400: {
-        $ref: '#components/responses/NotFound'
-      },
-      401: {
-        $ref: '#components/responses/Unauthorized'
-      }
-    }
-  },
-  // Request de tipo post y protección con bearear
   post: {
-    tags: ['Categories'],
-    description: 'Crear Categoria',
-    operationId: 'postCategory',
+    summary: 'Create member',
+    tags: ['Members'],
+    description: 'Crear member',
+    operationId: 'postMember',
     parameters: [],
     security: [{ bearerAuth: [] }],
     requestBody: {
       content: {
         'application/json': {
           schema: {
-            $ref: '#/components/schemas/Categories'
+            $ref: '#/components/schemas/Member'
           }
         }
       }
@@ -67,23 +33,20 @@ const base = {
         $ref: '#components/responses/Unauthorized'
       }
     }
-  }
-};
-
-const byId = {
+  },
   get: {
-    tags: ['Categories'],
-    description: 'Detalles de categoria',
-    operationId: 'getCategory',
+    summary: 'Get all members',
+    tags: ['Members'],
+    description: 'List Member',
+    operationId: 'getMembers',
     parameters: [
       {
-        in: 'path',
-        name: 'categoriesId',
-        schema: {
-          type: 'integer'
-        },
-        required: true,
-        description: 'Id de la categoria'
+        in: 'query',
+        name: 'limit'
+      },
+      {
+        in: 'query',
+        name: 'page'
       }
     ],
     security: [{ bearerAuth: [] }],
@@ -105,24 +68,35 @@ const byId = {
         $ref: '#components/responses/Unauthorized'
       }
     }
-  },
-
+  }
+};
+const byId = {
   put: {
-    tags: ['Categories'],
-    description: 'Editar categoria',
-    operationId: 'putCategory',
+    summary: 'Update member',
+    tags: ['Members'],
+    description: 'Edit member',
+    operationId: 'putMember',
     parameters: [
       {
         in: 'path',
-        name: 'categoryId',
+        name: 'memberId',
         schema: {
           type: 'integer'
         },
         required: true,
-        description: 'Id de la categoria'
+        description: 'Id member'
       }
     ],
     security: [{ bearerAuth: [] }],
+    requestBody: {
+      content: {
+        'application/json': {
+          schema: {
+            $ref: '#/components/schemas/Member'
+          }
+        }
+      }
+    },
     responses: {
       200: {
         description: 'OK',
@@ -144,18 +118,19 @@ const byId = {
   },
 
   delete: {
-    tags: ['Categories'],
-    description: 'Eliminar categoria',
-    operationId: 'delCategory',
+    summary: 'Delete member',
+    tags: ['Members'],
+    description: 'Eliminar member',
+    operationId: 'delMember',
     parameters: [
       {
         in: 'path',
-        name: 'categoryId',
+        name: 'memberId',
         schema: {
           type: 'integer'
         },
         required: true,
-        description: 'Id de la categoria'
+        description: 'Id member'
       }
     ],
     security: [{ bearerAuth: [] }],
@@ -179,7 +154,6 @@ const byId = {
     }
   }
 };
-
 module.exports = {
   base,
   byId

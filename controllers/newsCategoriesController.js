@@ -29,15 +29,26 @@ class NewsCategoriesController {
     }
   }
   static async nameCategories(req, res) {
-    try {
-      const { page = 1 } = req.query;
-      const { results, next, prev } = await paginated(Categories, LIMIT_PAGE, +page, req);
-      if (results.length === 0) {
+    let { page } = req.query;
+    if (page) {
+      try {
+        const { page = 1 } = req.query;
+        const { results, next, prev } = await paginated(Categories, LIMIT_PAGE, +page, req);
+        if (results.length != 0) {
+          return res.status(responseStatusHTTP.Ok).json({ prev, next, results });
+        }
         return res.status(responseStatusHTTP.Not_Found).json({ msg: 'The Categorty is not found in the database' });
+      } catch (err) {
+        res.status(responseStatusHTTP.Internal_Server_Error).json({ msg: 'Internal Server error' });
       }
-      return res.status(responseStatusHTTP.Ok).json({ prev, next, results });
-    } catch (err) {
-      res.status(responseStatusHTTP.Internal_Server_Error).json({ msg: 'Internal Server error' });
+    }
+    try {
+      page = await Categories.findAll({ attributes: ['name'] });
+      if (page) {
+        return res.status(responseStatusHTTP.Ok).json({ page });
+      }
+    } catch (error) {
+      return res.status(responseStatusHTTP.Not_Found).json({ msg: 'The Categorty is not found in the database' });
     }
   }
   static async updateCategory(req, res) {

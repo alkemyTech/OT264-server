@@ -48,8 +48,8 @@ class AwsSdkS3 {
     });
   }
 
-  static uploadLocalObject(filePath) {
-    var uploadParams = { Bucket: bucketName, Key: '', Body: '' };
+  static async uploadLocalObject(filePath) {
+    var uploadParams = { Bucket: bucketName, Key: '', Body: '', ACL: 'public-read' };
     var file = filePath;
 
     // Configure the file stream and obtain the upload parameters
@@ -61,18 +61,13 @@ class AwsSdkS3 {
     uploadParams.Body = fileStream;
 
     uploadParams.Key = path.basename(file);
-
     // call S3 to retrieve upload file to specified bucket
-    s3.upload(uploadParams, function (err, data) {
-      if (err) {
-        console.log('Error', err);
-        throw new Error(err.message);
-      }
-      if (data) {
-        console.log('Upload Success', data.Location);
-        return data;
-      }
-    });
+    try {
+      const result = await s3.upload(uploadParams).promise();
+      return result.Location;
+    } catch (err) {
+      throw new Error(err.message);
+    }
   }
 
   static uploadStream(fileName, stream) {
