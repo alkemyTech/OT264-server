@@ -16,7 +16,6 @@ class RoleValidator {
     if (roleId !== 1) {
       return res.status(401).send({ msg: 'Unauthorized' });
     }
-
     next();
   }
 }
