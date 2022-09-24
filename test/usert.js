@@ -74,6 +74,9 @@ describe('User endpoint test as standar user', () => {
   after(() => {
     sinon.restore();
     sandbox.restore();
+    json = sinon.spy();
+    res = { json };
+    });
   });
 
   const user = {
@@ -81,29 +84,31 @@ describe('User endpoint test as standar user', () => {
     firstName: 'user1',
     lastName: 'user11',
     email: 'user1@email.com',
+    image: 'https://http.cat/100',
     password: 'qwerty',
-    image: 'https://http.cat/100'
-    //roleId: 2
+    roleId: 2
   };
 
   describe('PATCH /user', () => {
-    it('It should update a user', async () => {
-      const updatedUser = {
-        password: 'qwe123'
-      };
-      const reqParamsUserId = 1;
-      sandbox.stub(User, 'update').resolves(user);
-      const response = await request.patch(`${baseUrl}/${reqParamsUserId}`).send(updatedUser);
+    let updateStub;
+    before(function () {
+      updateStub = sinon.stub(User, 'update');
+    });
 
-      //response.body = updatedUser;
+    afterEach(function () {
+      status = sinon.stub();
+      json = sinon.spy();
+      res = { json, status };
+      status.returns(res);
+    });
 
-      //const responseUpdatedUser = await request.get(baseUrl);
-      //expect(responseUpdatedUser.body[0].password).to.be.deep.equal(responseUpdatedUser.password);
-      const responseUpdatedUser = response.body;
-      //expect(updatedUser).to.have.property('password');
+    it('returns 200 and a member update message', async function () {
+      const req = {params: { id: 1 }, body: { password: '1234' }};
+      updateStub.resolves([true]);
+      //await MemberController.updateMembers(req,res);
       expect(response.status).to.be.equal(200);
-      //expect(response.body);
-      expect(user).to.be.deep.equal(responseUpdatedUser);
+      //expect(status.args[0][0]).be.equal(200);
+      expect(json.args[0][0].msg).be.equal('Member was updated successfully');
     });
   });
 });
