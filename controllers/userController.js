@@ -1,5 +1,6 @@
 const { User } = require('../models');
 const bcrypt = require('bcrypt');
+const ApiUtils = require('../utils/apiUtils');
 const JwtUtils = require('../utils/jwtUtils');
 const WelcomeEmail = require('../services/welcomeEmail');
 const WELCOME_MESSAGE = 'Bienvenido/a a nuestra ONG';
@@ -18,13 +19,39 @@ class UserController {
     }
   }
   static async getAllUsers(req, res) {
+    const baseUrl = await ApiUtils.getBaseUrl(req);
+    let { page } = req.query;
+
+    const options = {};
+    let pages = {};
+
+    if (page) {
+      page = parseInt(page, 10);
+      options.limit = 10;
+      options.offset = (page - 1) * 10;
+    }
+
+    let users;
     try {
+      users = await User.findAndCountAll(options);
+    } catch (err) {
+      res.status(500).send({ msg: 'Internal Server error', error: err.message });
+    }
+
+    if (page) {
+      pages = await ApiUtils.getPagination(baseUrl, page, users.count);
+    }
+
+    res.status(200).send({ msg: 'Lista de novedades', ...pages, users: users.rows });
+  }
+
+  /* try {
       const users = await User.findAll();
       res.status(200).json(users);
     } catch (error) {
       res.status(404).send('Ah ocurrido un error');
     }
-  }
+  }*/
 
   static async getByEmail(email) {
     const user = await User.findOne({ where: { email } });

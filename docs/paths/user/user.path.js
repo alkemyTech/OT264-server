@@ -11,7 +11,7 @@ const base = {
       },
       {
         in: 'query',
-        name: 'offset'
+        name: 'page'
       }
     ],
     responses: {
@@ -34,7 +34,7 @@ const base = {
     }
   },
   // Request de tipo post y protección con bearear
-  post: {
+  /* post: {
     tags: ['User'],
     description: 'crear Usuario',
     operationId: 'postUser',
@@ -104,7 +104,7 @@ const byId = {
         $ref: '#components/responses/Unauthorized'
       }
     }
-  },
+  },*/
 
   put: {
     tags: ['User'],
@@ -178,6 +178,5 @@ const byId = {
 };
 
 module.exports = {
-  base,
-  byId
+  base
 };

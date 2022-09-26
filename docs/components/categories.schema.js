@@ -2,18 +2,13 @@ module.exports = {
   Categories: {
     type: 'object',
     properties: {
-      id: {
-        type: 'integer',
-        format: 'int64',
-        example: 10
-      },
       name: {
         type: 'string',
-        example: 'Categoria 1'
+        example: 'Testimonios'
       },
       description: {
         type: 'string',
-        example: 'Descripcion de categoria 1'
+        example: 'Muchas gracias por su trabajo'
       },
       image: {
         type: 'string',

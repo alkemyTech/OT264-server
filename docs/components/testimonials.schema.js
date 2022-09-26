@@ -2,14 +2,9 @@ module.exports = {
   Testimonial: {
     type: 'object',
     properties: {
-      id: {
-        type: 'integer',
-        format: 'int64',
-        example: 10
-      },
       name: {
         type: 'string',
-        example: 'Alan'
+        example: 'Concurso de pintara'
       },
       image: {
         type: 'string',
@@ -17,7 +12,7 @@ module.exports = {
       },
       content: {
         type: 'string',
-        example: 'Content 1'
+        example: 'Ingresé a un concurso de pintura gracias a taller'
       }
     }
   }

@@ -7,10 +7,12 @@ const testimonial = require('./testimonials.schema');
 const news = require('./news.schema');
 const member = require('./mebers.schema');
 const auth = require('./auth.schema');
+const contact = require('./contacts.schema');
 
 module.exports = {
   components: {
     schemas: {
+      ...contact,
       ...auth,
       ...member,
       ...news,

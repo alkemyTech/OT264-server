@@ -2,28 +2,25 @@ module.exports = {
   User: {
     type: 'object',
     properties: {
-      id: {
-        type: 'integer',
-        format: 'int64',
-        example: 10
-      },
-      username: {
+      firstName: {
         type: 'string',
-        example: 'theUser'
+        example: 'RodrigoFuentes'
+      },
+      lastName: {
+        type: 'string',
+        example: 'Fuentes'
       },
       email: {
         type: 'string',
-        example: 'user@mail.com'
+        example: 'rodrigofuentes@mail.com'
       },
       password: {
         type: 'string',
-        example: '123456'
+        example: 'qwerty'
       },
-      address: {
-        type: 'array',
-        items: {
-          $ref: '#components/schemas/Address'
-        }
+      image: {
+        type: 'string',
+        example: 'https://http.cat/100'
       }
     }
   }

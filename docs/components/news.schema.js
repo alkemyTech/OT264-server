@@ -4,11 +4,11 @@ module.exports = {
     properties: {
       name: {
         type: 'string',
-        example: 'New 1'
+        example: 'Nuevo taller de pintura'
       },
       content: {
         type: 'string',
-        example: 'Descripcion de New 1'
+        example: 'Taller de pinturas sobre arcilla'
       },
       image: {
         type: 'string',
@@ -21,7 +21,7 @@ module.exports = {
       },
       comment: {
         type: 'string',
-        example: 'Comentario por Id'
+        example: 'Que buen taller'
       }
     }
   }

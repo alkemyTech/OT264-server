@@ -17,6 +17,9 @@ module.exports = {
     },
     {
       name: 'Members'
+    },
+    {
+      name: 'Contacts'
     }
   ]
 };
