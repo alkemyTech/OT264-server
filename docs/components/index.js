@@ -7,6 +7,7 @@ const testimonial = require('./testimonials.schema');
 const news = require('./news.schema');
 const member = require('./mebers.schema');
 const auth = require('./auth.schema');
+const slides = require('./slides.schema');
 
 module.exports = {
   components: {
@@ -18,7 +19,8 @@ module.exports = {
       ...category,
       ...user,
       ...address,
-      ...apiresponse
+      ...apiresponse,
+      ...slides
     },
     responses: {
       ...error

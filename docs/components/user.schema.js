@@ -7,24 +7,32 @@ module.exports = {
         format: 'int64',
         example: 10
       },
-      username: {
+      firstName: {
         type: 'string',
-        example: 'theUser'
+        example: 'No'
+      },
+      lastName: {
+        type: 'string',
+        example: 'Admin'
       },
       email: {
         type: 'string',
-        example: 'user@mail.com'
+        example: 'noAdmin_11@test.com'
       },
       password: {
         type: 'string',
-        example: '123456'
+        example: 'noAdmin_11'
       },
-      address: {
+      image: {
+        type: 'string',
+        example: 'https://www.designevo.com/res/templates/thumb_small/colorful-hand-and-warm-community.png'
+      }
+      /* address: {
         type: 'array',
         items: {
           $ref: '#components/schemas/Address'
         }
-      }
+      } */
     }
   }
 };

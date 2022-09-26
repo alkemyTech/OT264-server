@@ -1,10 +1,10 @@
 const userPath = require('./user.path');
 
 module.exports = {
-  '/user': {
+  '/users': {
     ...userPath.base
   },
-  '/user/{userId}': {
+  '/users/{userId}': {
     ...userPath.byId
   }
 };

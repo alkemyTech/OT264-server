@@ -69,7 +69,7 @@ class SlidesController {
       try {
         const newSlide = await Slide.create({
           imageUrl: urlLocation,
-          text: nameFile,
+          text: text,
           order: order + 1,
           organizationId
         });
@@ -81,7 +81,7 @@ class SlidesController {
       try {
         const newSlide = await Slide.create({
           imageUrl: urlLocation,
-          text: nameFile,
+          text: text,
           order: order,
           organizationId
         });

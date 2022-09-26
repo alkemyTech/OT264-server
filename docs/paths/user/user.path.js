@@ -7,13 +7,10 @@ const base = {
     parameters: [
       {
         in: 'query',
-        name: 'limit'
-      },
-      {
-        in: 'query',
-        name: 'offset'
+        name: 'page'
       }
     ],
+    security: [{ bearerAuth: [] }],
     responses: {
       200: {
         description: 'OK',
@@ -34,7 +31,7 @@ const base = {
     }
   },
   // Request de tipo post y protección con bearear
-  post: {
+ /*  post: {
     tags: ['User'],
     description: 'crear Usuario',
     operationId: 'postUser',
@@ -67,11 +64,11 @@ const base = {
         $ref: '#components/responses/Unauthorized'
       }
     }
-  }
+  } */
 };
 
 const byId = {
-  get: {
+  /* get: {
     tags: ['User'],
     description: 'Detalles de usuario',
     operationId: 'getUser',
@@ -104,12 +101,12 @@ const byId = {
         $ref: '#components/responses/Unauthorized'
       }
     }
-  },
+  }, */
 
-  put: {
+  patch: {
     tags: ['User'],
     description: 'Editar usuario',
-    operationId: 'putUSer',
+    operationId: 'patchUSer',
     parameters: [
       {
         in: 'path',
@@ -121,6 +118,16 @@ const byId = {
         description: 'Id del usuario'
       }
     ],
+    security: [{ bearerAuth: [] }],
+    requestBody: {
+      content: {
+        'application/json': {
+          schema: {
+            $ref: '#/components/schemas/User'
+          }
+        }
+      }
+    },
     responses: {
       200: {
         description: 'OK',
@@ -145,6 +152,7 @@ const byId = {
     tags: ['User'],
     description: 'Eliminar usuario',
     operationId: 'delUSer',
+    security: [{ bearerAuth: [] }],
     parameters: [
       {
         in: 'path',

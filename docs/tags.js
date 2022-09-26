@@ -6,7 +6,7 @@ module.exports = {
     {
       name: 'User' // name of a tag
     },
-    {
+/*     {
       name: 'Categories'
     },
     {
@@ -17,6 +17,9 @@ module.exports = {
     },
     {
       name: 'Members'
+    }, */
+    {
+      name: 'Slides'
     }
   ]
 };

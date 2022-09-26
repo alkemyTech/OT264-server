@@ -4,13 +4,15 @@ const testimonial = require('./testimonial');
 const news = require('./new');
 const member = require('./member');
 const auth = require('./auth');
+const slides = require('./slides');
 module.exports = {
   paths: {
     ...auth,
-    ...testimonial,
+    //...testimonial,
     ...user,
-    ...category,
-    ...news,
-    ...member
+    //...category,
+    //...news,
+    //...member,
+    ...slides
   }
 };

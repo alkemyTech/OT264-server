@@ -1,8 +1,10 @@
 const { User } = require('../models');
 const bcrypt = require('bcrypt');
 const JwtUtils = require('../utils/jwtUtils');
+const ApiUtils = require('../utils/apiUtils');
 const WelcomeEmail = require('../services/welcomeEmail');
 const WELCOME_MESSAGE = 'Bienvenido/a a nuestra ONG';
+const responseStatusHTTP = require('../utils/responseHTTP');
 
 class UserController {
   static async deleteUser(req, res) {
@@ -14,16 +16,42 @@ class UserController {
       }
       return res.status(400).json({ msg: 'Ese usuario no existe' });
     } catch (error) {
-      res.status(404).json({ msg: 'Ah ocurrido un error' });
+      res.status(responseStatusHTTP.Internal_Server_Error).json({ msg: 'Internal Server error' });
     }
   }
   static async getAllUsers(req, res) {
+    const baseUrl = await ApiUtils.getBaseUrl(req);
+    let { page } = req.query;
+    const options = {};
+    let pages = {};
+
+    if (page) {
+      page = parseInt(page, 10);
+      options.limit = 10;
+      options.offset = (page - 1) * 10;
+    }
+
+    let users;
+
     try {
+      users = await User.findAndCountAll(options);
+    } catch (err) {
+      return res
+        .status(responseStatusHTTP.Internal_Server_Error)
+        .send({ msg: 'Internal Server error', error: err.message });
+    }
+
+    if (page) {
+      pages = await ApiUtils.getPagination(baseUrl, page, users.count);
+    }
+
+    res.status(responseStatusHTTP.Ok).send({ msg: 'Lista de miembros', users: users.rows, ...pages });
+   /*  try {
       const users = await User.findAll();
       res.status(200).json(users);
     } catch (error) {
       res.status(404).send('Ah ocurrido un error');
-    }
+    } */
   }
 
   static async getByEmail(email) {
