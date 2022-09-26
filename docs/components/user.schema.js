@@ -2,11 +2,6 @@ module.exports = {
   User: {
     type: 'object',
     properties: {
-      id: {
-        type: 'integer',
-        format: 'int64',
-        example: 10
-      },
       firstName: {
         type: 'string',
         example: 'No'

@@ -4,19 +4,19 @@ module.exports = {
     properties: {
       firstName: {
         type: 'string',
-        example: 'Marita'
+        example: 'Cesilia'
       },
       lastName: {
         type: 'string',
-        example: 'Gomez'
+        example: 'S.'
       },
       email: {
         type: 'string',
-        example: 'maritagomez@mail.test'
+        example: 'maritagomez@gmail.com'
       },
       password: {
         type: 'string',
-        example: '123456'
+        example: 'ceciliaPassword'
       }
     }
   },
